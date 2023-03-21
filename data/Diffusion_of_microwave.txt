@@ -1,0 +1,2 @@
+内閣府「統計表一覧：消費動向調査」（https://www.esri.cao.go.jp/jp/stat/shouhi/shouhi.html）にある「主要耐久消費財等の普及率（平成16(2004)年3月で調査終了した品目）」をダウンロード
+https://www.esri.cao.go.jp/jp/stat/shouhi/0403fukyuritsu.xls
