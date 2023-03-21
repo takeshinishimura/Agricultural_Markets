@@ -1,1 +1,3 @@
-# Agricultural_Markets
+# 農業市場論
+
+農業市場論の講義ノートです。
