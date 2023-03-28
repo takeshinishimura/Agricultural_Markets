@@ -21,7 +21,7 @@ df = pd.read_excel("https://www.esri.cao.go.jp/jp/stat/shouhi/0403fukyuritsu.xls
 
 df = df.replace('\u3000\u3000', np.nan)
 df = df.drop(0)
-df["年"] = [math.floor(i) + 1925 if i > 30 else math.floor(i) + 1988 for i in df["調査項目"]]
+df["年"] = [math.floor(i) + 1925 if i > 31 else math.floor(i) + 1988 for i in df["調査項目"]]
 
 plt.plot(df["年"], df["電子レンジ"], marker="o", label="電子レンジ")
 plt.ylim(0, 100)
