@@ -1,0 +1,12 @@
+bookdown::gitbook:
+  split_by: chapter+number
+  config:
+    toolbar:
+      position: static
+    toc:
+      before: |
+        <li><a href="./">農業市場論</a></li>
+bookdown::pdf_book:
+  keep_tex: yes
+bookdown::html_book:
+  css: toc.css
