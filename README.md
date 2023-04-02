@@ -14,4 +14,4 @@ GitHubがよくわからない人は，今見ているページではなくこ�
 
 ## 番外編
 
-- [時系列データ](https://takeshinishimura.github.io/Agricultural_Markets/extra/ts.html){:target="_blank"}
+- [時系列データ](https://takeshinishimura.github.io/Agricultural_Markets/ts.html)

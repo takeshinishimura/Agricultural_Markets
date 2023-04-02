@@ -1,5 +1,6 @@
 ---
 title: "時系列データ"
+date: "`r format(Sys.time(), '%Y-%m-%d') `"
 format:
   html:
     toc: true
@@ -9,6 +10,8 @@ format:
     number_sections: true
 #   code_folding: hide
     theme: Journal
+params: 
+  output-dir: "../docs"
 lang: "ja"
 ---
 
@@ -133,4 +136,15 @@ dg1 <- dygraphs::dygraph(dts[, 1], group = "homedata") %>%
 dg2 <- dygraphs::dygraph(dts[, 2], group = "homedata") %>%
   dyRangeSelector(dateWindow = dateWindow)
 dg1; dg2
+```
+
+
+```{r}
+#| include: false
+outdir <- "../docs"
+if (!file.exists(outdir)) {
+  dir.create(outdir)
+}
+file.rename("ts.html", file.path(outdir, "ts.html"))
+file.rename("ts_files", file.path(outdir, "ts_files"))
 ```
