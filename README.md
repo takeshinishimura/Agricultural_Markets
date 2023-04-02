@@ -10,8 +10,3 @@ GitHubがよくわからない人は，今見ているページではなくこ�
 
 質問等はメールで連絡するか，直接聞いてください。
 記述内容の間違いの指摘も歓迎します。
-
-
-## 番外編
-
-- [時系列データ](https://takeshinishimura.github.io/Agricultural_Markets/ts.html)
