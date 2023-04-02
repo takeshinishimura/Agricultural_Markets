@@ -8,8 +8,10 @@
 GitHubがよくわからない人は，今見ているページではなくこちらをご覧ください。
 [ここ](http://google.com/)
 
-## 番外編
-
-- [時系列データ](https://takeshinishimura.github.io/Agricultural_Markets/extra/ts.html)
 質問等はメールで連絡するか，直接聞いてください。
 記述内容の間違いの指摘も歓迎します。
+
+
+## 番外編
+
+- [時系列データ](https://takeshinishimura.github.io/Agricultural_Markets/extra/ts.html){:target="_blank"}
