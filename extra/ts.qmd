@@ -38,7 +38,7 @@ dim(dts)
 
 温度と湿度を別々にプロットすると @fig-plot のようになる。
 年や月，日などで期間を指定できる。
-@fig-plot-year は2022年だけの図， @fig-plot-month は月単位で期間を指定した場合の図である。
+@fig-plot-year は2022年だけの図，@fig-plot-month は月単位で期間を指定した場合の図である。
 また，@fig-plot-monthlymean のように月ごとに最大値，最小値，平均値を描画することも簡単にできる。
 
 ```{r}
