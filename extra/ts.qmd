@@ -141,10 +141,10 @@ dg1; dg2
 
 ```{r}
 #| include: false
-outdir <- "../docs"
-if (!file.exists(outdir)) {
-  dir.create(outdir)
-}
-file.rename("ts.html", file.path(outdir, "ts.html"))
-file.rename("ts_files", file.path(outdir, "ts_files"))
+#outdir <- "../docs"
+#if (!file.exists(outdir)) {
+#  dir.create(outdir)
+#}
+#file.rename("ts.html", file.path(outdir, "ts.html"))
+#file.rename("ts_files", file.path(outdir, "ts_files"))
 ```
