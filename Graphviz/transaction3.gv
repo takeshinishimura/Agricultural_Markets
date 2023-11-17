@@ -1,0 +1,80 @@
+digraph transaction3 {
+  rankdir=LR;
+  node [fontname=Helvetica, shape=box];
+  ranksep=0.75;
+  nodesep=0.1;
+
+  subgraph kluster_0 {
+    label="生産者";
+    P1 [label="生産者A"];
+    P2 [label="生産者B"];
+    P3 [label="生産者C"];
+    P4 [label="生産者D"];
+    P5 [label="生産者E"];
+    P1 -> P2 [style=invis];
+    P2 -> P3 [style=invis];
+    P3 -> P4 [style=invis];
+    P4 -> P5 [style=invis];
+    {rank = same; P1; P2; P3; P4; P5}
+  }
+
+  subgraph kluster_1 {
+    label="消費者";
+    C1 [label="消費者A"];
+    C2 [label="消費者B"];
+    C3 [label="消費者C"];
+    C4 [label="消費者D"];
+    C5 [label="消費者E"];
+    C1 -> C2 [style=invis];
+    C2 -> C3 [style=invis];
+    C3 -> C4 [style=invis];
+    C4 -> C5 [style=invis];
+    {rank = same; C1; C2; C3; C4; C5}
+  }
+
+  node [label="JA"]
+  JA1; JA2; JA3; JA4; JA5;
+
+  node [label="卸売市場"];
+  subgraph kluster_WS {
+    market1; market2;
+    {rank = same; market1; market2}
+  }
+
+  node [label="スーパー"];
+  subgraph kluster_SM {
+    SM1; SM2; SM3;
+    {rank = same; SM1; SM2; SM3}
+  }
+
+  edge [fontname=Helvetica]
+  P1 -> JA1 [label="取引1", fontcolor=red, color=red];
+  P2 -> JA2 [label="取引2", fontcolor=purple, color=purple];
+  P3 -> JA3 [label="取引3", fontcolor=blue, color=blue];
+  P4 -> JA4 [label="取引4", fontcolor=green, color=green];
+  P5 -> JA5 [label="取引5", fontcolor=orange, color=orange];
+
+  JA1 -> market1 [label="取引6", fontcolor=red, color=red];
+  JA1 -> market2 [label="取引7", fontcolor=red, color=red];
+  JA2 -> market1 [label="取引8", fontcolor=purple, color=purple];
+  JA2 -> market2 [label="取引9", fontcolor=purple, color=purple];
+  JA3 -> market1 [label="取引10", fontcolor=blue, color=blue];
+  JA3 -> market2 [label="取引11", fontcolor=blue, color=blue];
+  JA4 -> market1 [label="取引12", fontcolor=green, color=green];
+  JA4 -> market2 [label="取引13", fontcolor=green, color=green];
+  JA5 -> market1 [label="取引14", fontcolor=orange, color=orange];
+  JA5 -> market2 [label="取引15", fontcolor=orange, color=orange];
+
+  market1 -> SM1 [label="取引16", fontcolor=brown, color=brown];
+  market1 -> SM2 [label="取引17", fontcolor=brown, color=brown];
+  market1 -> SM3 [label="取引18", fontcolor=brown, color=brown];
+  market2 -> SM1 [label="取引19", fontcolor=brown, color=brown];
+  market2 -> SM2 [label="取引20", fontcolor=brown, color=brown];
+  market2 -> SM3 [label="取引21", fontcolor=brown, color=brown];
+
+  SM1 -> C1 [label="取引22", fontcolor=turquoise, color=turquoise];
+  SM1 -> C2 [label="取引23", fontcolor=turquoise, color=turquoise];
+  SM2 -> C3 [label="取引24", fontcolor=turquoise, color=turquoise];
+  SM2 -> C4 [label="取引25", fontcolor=turquoise, color=turquoise];
+  SM3 -> C5 [label="取引26", fontcolor=turquoise, color=turquoise];
+}

@@ -1,0 +1,11 @@
+digraph market_vegetables {
+  graph [rankdir = LR]
+
+  node [shape = circle,
+        width = 1.5,
+        fixedsize = true]
+  生産者＝消費者
+
+  edge [fontname = Helvetica]
+  生産者＝消費者
+}

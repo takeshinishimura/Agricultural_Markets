@@ -1,0 +1,38 @@
+digraph market_vegetables {
+  graph [rankdir = LR]
+
+  node [shape = box,
+        fontname = Helvetica,
+        style = filled,
+        fillcolor = white, 
+        width = 1.4,
+        fixedsize = false]
+  農協; 集出荷業者; 卸売業者; 仲卸業者; 売買参加者; 小売業者
+  node [shape = circle,
+        width = 0.9,
+        fixedsize = false]
+  生産者; 消費者
+
+  edge [fontname = Helvetica]
+  生産者->農協
+  生産者->集出荷業者
+  生産者->卸売業者
+  農協->卸売業者
+  集出荷業者->卸売業者
+  卸売業者->仲卸業者
+  卸売業者->売買参加者
+  仲卸業者->小売業者
+  売買参加者->小売業者
+  小売業者->消費者
+
+  subgraph cluster0 {
+    label = "卸売市場"
+    fontname = Helvetica
+    bgcolor = "#F9EFF1"
+    style = "dashed,rounded"
+    {卸売業者; 仲卸業者; 売買参加者}
+    subgraph sub {
+      {rank = same; 仲卸業者; 売買参加者}
+    }
+  }
+}

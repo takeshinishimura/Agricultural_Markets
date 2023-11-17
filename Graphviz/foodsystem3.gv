@@ -1,0 +1,22 @@
+digraph market_vegetables {
+  graph [rankdir = LR]
+
+  node [shape = box,
+        fontname = Helvetica,
+        style = filled,
+        fillcolor = white, 
+        width = 1.5,
+        fixedsize = true]
+  食品流通業; 食品製造業; 食品小売業
+  node [shape = circle,
+        width = 0.9,
+        fixedsize = true]
+  生産者; 消費者
+
+  edge [fontname = Helvetica]
+  生産者->食品流通業
+  食品流通業->食品製造業
+  食品製造業->食品小売業
+  食品小売業->消費者
+  食品流通業->消費者 [constraint=false];
+}

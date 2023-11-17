@@ -1,0 +1,22 @@
+digraph market_vegetables {
+  graph [rankdir = LR]
+
+  node [shape = box,
+        fontname = Helvetica,
+        style = filled,
+        fillcolor = white, 
+        width = 1.5,
+        fixedsize = false]
+  出荷事業者; 販売事業者
+  node [shape = circle,
+        width = 0.9,
+        fixedsize = false]
+  生産者; 消費者
+
+  edge [fontname = Helvetica]
+  生産者->出荷事業者;
+  生産者->販売事業者;
+  生産者->消費者;
+  出荷事業者->販売事業者;
+  販売事業者->消費者;
+}

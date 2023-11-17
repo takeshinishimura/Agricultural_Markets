@@ -1,0 +1,39 @@
+digraph market_vegetables {
+  graph [rankdir = LR]
+
+  node [shape = box,
+        fontname = Helvetica,
+        style = filled,
+        fillcolor = white, 
+        width = 0.5,
+        height = 1.5,
+        fixedsize = true]
+  "農\n協"; "経\n済\n連"; "全\n農"; "卸\n売\n業\n者"; "小\n売\n業\n者"
+  政府 [width = 1.5,
+       height = 0.5,
+       fillcolor = orange]
+  node [shape = circle,
+        width = 0.9,
+        height = 0.9,
+        fixedsize = false]
+  生産者; 消費者
+
+  edge [fontname = Helvetica]
+  生産者->"農\n協";
+  "農\n協"->"経\n済\n連";
+  "経\n済\n連"->"全\n農";
+  "全\n農"->政府;
+  政府->"卸\n売\n業\n者";
+  "卸\n売\n業\n者"->"小\n売\n業\n者";
+  "小\n売\n業\n者"->消費者;
+  "全\n農"->"卸\n売\n業\n者" [label = "自主流通米", constraint = false, penwidth = 2];
+  "経\n済\n連"->"卸\n売\n業\n者" [label = "自主流通米", constraint = false, penwidth = 2];
+
+  subgraph cluster0 {
+    label = "農協系統"
+    fontname = Helvetica
+    bgcolor = honeydew
+    style = "dashed,rounded"
+    {"農\n協"; "経\n済\n連"; "全\n農"}
+  }
+}

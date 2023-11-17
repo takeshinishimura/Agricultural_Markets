@@ -1,0 +1,55 @@
+digraph transaction2 {
+  rankdir=LR;
+  node [fontname=Helvetica, shape=box];
+  ranksep=8.0;
+  nodesep=0.1;
+
+  subgraph kluster_0 {
+    label="生産者";
+    P1 [label="生産者A"];
+    P2 [label="生産者B"];
+    P3 [label="生産者C"];
+    P4 [label="生産者D"];
+    P5 [label="生産者E"];
+    P1 -> P2 [style=invis];
+    P2 -> P3 [style=invis];
+    P3 -> P4 [style=invis];
+    P4 -> P5 [style=invis];
+    {rank = same; P1; P2; P3; P4; P5}
+  }
+
+  subgraph kluster_1 {
+    label="消費者";
+    C1 [label="消費者A"];
+    C2 [label="消費者B"];
+    C3 [label="消費者C"];
+    C4 [label="消費者D"];
+    C5 [label="消費者E"];
+    C1 -> C2 [style=invis];
+    C2 -> C3 [style=invis];
+    C3 -> C4 [style=invis];
+    C4 -> C5 [style=invis];
+    {rank = same; C1; C2; C3; C4; C5}
+  }
+
+  edge [fontname=Helvetica, fontcolor=red, color=red];
+  P1 -> C1 [label="取引1"];
+  P1 -> C2 [label="取引2"];
+  P1 -> C3 [label="取引3"];
+  P1 -> C4 [label="取引4"];
+  P1 -> C5 [label="取引5"];
+  
+  edge [fontname=Helvetica, fontcolor=purple, color=purple];
+  P2 -> C1 [label="取引6"];
+  P2 -> C2 [label="取引7"];
+  P2 -> C3 [label="取引8"];
+  P2 -> C4 [label="取引9"];
+  P2 -> C5 [label="取引10"];
+  
+  edge [fontname=Helvetica, fontcolor=blue, color=blue];
+  P3 -> C1 [label="取引11"];
+  P3 -> C2 [label="取引12"];
+  P3 -> C3 [label="取引13"];
+  P3 -> C4 [label="取引14"];
+  P3 -> C5 [label="取引15"];
+}
