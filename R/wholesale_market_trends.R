@@ -15,7 +15,10 @@ g <- ggplot(data = d_long, aes(x = 年度, y = value, group = name, colour = nam
   geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), 
             nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +
   scale_y_continuous(limits = c(0, 100)) +
-  labs(title = "卸売市場経由率の推移", y = "%", x = "年度", caption = "農林水産省(2022)「令和3年度 卸売市場データ集」") +
+  labs(title = "卸売市場経由率の推移",
+       x = "年度", 
+       y = "%",
+       caption = "農林水産省(2022)「令和3年度 卸売市場データ集」") +
   theme_bw() +
   theme(
     text = element_text(family = "HiraKakuProN-W3"),

@@ -1,0 +1,80 @@
+digraph market_vegetables {
+  graph [rankdir = LR]
+
+  node [shape = box,
+        fontname = Helvetica,
+        style = filled,
+        fillcolor = white, 
+        width = 1.4,
+        fixedsize = false]
+  "集出荷団体\n（農協）"; 家畜市場; "週出荷団体\n（家畜商）"; 市場併設と畜場; 食肉センター; その他と畜場;
+  卸売市場; "卸売業者\n（食肉問屋・全農）"; 食肉加工業者; "量販店\n（スーパー）"; 外食店; "小売店\n（肉屋）"
+  node [shape = circle,
+        width = 0.9,
+        fixedsize = false]
+  生産者; 消費者
+
+  edge [fontname = Helvetica]
+  生産者->"集出荷団体\n（農協）"
+  生産者->家畜市場
+  生産者->"週出荷団体\n（家畜商）"
+  "集出荷団体\n（農協）"->家畜市場
+  家畜市場->"週出荷団体\n（家畜商）"
+  "週出荷団体\n（家畜商）"->家畜市場
+  家畜市場->"集出荷団体\n（農協）"
+  "集出荷団体\n（農協）"->市場併設と畜場
+  "集出荷団体\n（農協）"->食肉センター
+  "集出荷団体\n（農協）"->その他と畜場
+  "週出荷団体\n（家畜商）"->市場併設と畜場
+  "週出荷団体\n（家畜商）"->食肉センター
+  "週出荷団体\n（家畜商）"->その他と畜場
+  市場併設と畜場->卸売市場
+  食肉センター->卸売市場
+  食肉センター->食肉加工業者
+  その他と畜場->卸売市場
+  その他と畜場->"卸売業者\n（食肉問屋・全農）"
+  卸売市場->"卸売業者\n（食肉問屋・全農）"
+  卸売市場->食肉加工業者
+  卸売市場->"量販店\n（スーパー）"
+  卸売市場->外食店
+  卸売市場->"小売店\n（肉屋）"
+  "卸売業者\n（食肉問屋・全農）"->"量販店\n（スーパー）"
+  "卸売業者\n（食肉問屋・全農）"->外食店
+  "卸売業者\n（食肉問屋・全農）"->"小売店\n（肉屋）"
+  食肉加工業者->"量販店\n（スーパー）"
+  食肉加工業者->外食店
+  食肉加工業者->"小売店\n（肉屋）"
+  "量販店\n（スーパー）"->消費者
+  外食店->消費者
+  "小売店\n（肉屋）"->消費者
+
+  subgraph cluster0 {
+    label = "生体流通"
+    fontname = Helvetica
+    bgcolor = "#d1bea8"
+    style = "dashed,rounded"
+    {rank = same; "集出荷団体\n（農協）"; 家畜市場; "週出荷団体\n（家畜商）"}
+  }
+  subgraph cluster1 {
+    label = "と畜解体"
+    fontname = Helvetica
+    bgcolor = "#decbb4"
+    style = "dashed,rounded"
+    {rank = same; 市場併設と畜場; 食肉センター; その他と畜場}
+  }
+  subgraph cluster2 {
+    label = "卸売段階"
+    fontname = Helvetica
+    bgcolor = "#ebd7c1"
+    style = "dashed,rounded"
+    卸売市場;
+    {rank = same; "卸売業者\n（食肉問屋・全農）"; 食肉加工業者}
+  }
+  subgraph cluster3 {
+    label = "小売段階"
+    fontname = Helvetica
+    bgcolor = "#f8e4cd"
+    style = "dashed,rounded"
+    {rank = same; "量販店\n（スーパー）"; 外食店; "小売店\n（肉屋）"}
+  }
+}

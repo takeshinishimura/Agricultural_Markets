@@ -1,0 +1,947 @@
+ggplot(data = df_ha |> filter(pref != "全国")) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100, unhighlighted_params = list(color = "grey"), use_group_by = TRUE) +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+ggplot(data = df_ha |> filter(pref != "全国")) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100) +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+ggplot(data = df_ha |> filter(pref != "全国")) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100, family = "HiraKakuProN-W3") +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+df_ha |> filter(max(value) > 100, pref != "全国")
+df_max_values <- df_ha |> #
+  group_by(pref) |> #
+  summarize(max_value = max(value))#
+#
+# 最大値が100を超える都道府県のみを抽出#
+highlighted_prefs <- df_max_values |> #
+  filter(max_value > 100) |> #
+  pull(pref)
+df_ha |> filter(pref %in% highlighted_prefs, pref != "全国")
+df_ha |> filter(pref %in% highlighted_prefs)
+highlighted_prefs
+df_max_values
+df_max_values <- df_ha |> #
+  group_by(pref) |> #
+  summarize(max_value = max(value, na.rm = TRUE))#
+#
+# 最大値が100を超える都道府県のみを抽出#
+highlighted_prefs <- df_max_values |> #
+  filter(max_value > 100) |> #
+  pull(pref)
+df_max_values
+df_max_values <- df_ha |> #
+  group_by(pref) |> #
+  summarize(max_value = max(value, na.rm = TRUE))
+head(data.frame(df_ha), 50)
+df_max_values <- df_ha |> filter(pref != "北海道")) |>#
+  group_by(pref) |> #
+  summarize(max_value = max(value, na.rm = TRUE))
+df_max_values <- df_ha |> filter(pref != "北海道") |>#
+  group_by(pref) |> #
+  summarize(max_value = max(value, na.rm = TRUE))
+df_max_values <- df_ha |> filter(pref != "北海道", pref != "沖縄県") |>#
+  group_by(pref) |> #
+  summarize(max_value = max(value, na.rm = TRUE))
+df_max_values
+ggplot(data = df_ha |> filter(pref != "全国", pref != "北海道", pref != "沖縄県")) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100) +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+ggplot(data = df_ha |> filter(pref != "全国", pref != "北海道", pref != "沖縄県")) +#
+  geom_line(aes(x = year, y = value, color = pref)) +#
+  gghighlight(value > 100) +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+ggplot(data = df_ha |> filter(pref != "全国", pref != "北海道", pref != "沖縄県")) +#
+  geom_line(aes(x = year, y = value, color = pref)) +#
+  gghighlight(max(value) > 100) +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+ggplot(data = df_ha |> filter(pref != "全国", pref != "北海道", pref != "沖縄県")) +#
+  geom_line(aes(x = year, y = value, color = pref)) +#
+  gghighlight(value > 100) +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+df_max_values <- df_ha |>#
+  filter(pref != "北海道", pref != "沖縄県") |>#
+  group_by(pref) |> #
+  summarize(max_value = max(value, na.rm = TRUE))#
+highlighted_prefs <- df_max_values |> #
+  filter(max_value > 100) |> #
+  pull(pref)
+highlighted_prefs
+ggplot(data = df_ha |> filter(!pref %in% c("全国", "北海道", "沖縄県"))) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100) +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+highlighted_prefs
+ggplot(data = df_ha |> filter(!pref %in% c("全国", "北海道", "沖縄県"))) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100, label = FALSE) +#
+  geom_text(data = df_ha |> filter(pref %in% highlighted_prefs, pref != "全国"), aes(x = year, y = value, label = pref, group = pref), hjust = 1.5, family = "HiraKakuProN-W3") +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+ggplot(data = df_ha |> filter(!pref %in% c("全国", "北海道", "沖縄県"))) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100, label_key = NULL) +#
+  geom_text(data = df_ha |> filter(pref %in% highlighted_prefs, pref != "全国"), aes(x = year, y = value, label = pref, group = pref), hjust = 1.5, family = "HiraKakuProN-W3") +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+ggplot(data = df_ha |> filter(!pref %in% c("全国", "北海道", "沖縄県"))) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100, label_key = NULL) +#
+  geom_text(data = df_ha |> filter(pref %in% highlighted_prefs, pref != "全国"), aes(x = 2000, y = value, label = pref, group = pref), hjust = 1.5, family = "HiraKakuProN-W3") +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+df_max_values
+ggplot(data = df_ha |> filter(!pref %in% c("全国", "北海道", "沖縄県"))) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100, label_key = NULL) +#
+  geom_text(data = df_max_values, aes(x = 2000, y = max_value, label = pref), hjust = 1.5, family = "HiraKakuProN-W3") +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+df_max_values
+df_max_values |> filter(pref @= "全国")
+df_max_values |> filter(pref != "全国")
+ggplot(data = df_ha |> filter(!pref %in% c("全国", "北海道", "沖縄県"))) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 100, label_key = NULL) +#
+  geom_text(data = df_max_values |> filter(pref != "全国"), aes(x = 2000, y = max_value, label = pref), hjust = 1.5, family = "HiraKakuProN-W3") +#
+  labs(title = "キウイフルーツの結果樹面積", x = "年", y = "結果樹面積（ha）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+df_max_values <- df_harvest |>#
+  filter(pref != "北海道", pref != "沖縄県") |>#
+  group_by(pref) |> #
+  summarize(max_value = max(value, na.rm = TRUE))#
+highlighted_prefs <- df_max_values |> #
+  filter(max_value > 100) |> #
+  pull(pref)
+highlighted_prefs
+highlighted_prefs <- df_max_values |> #
+  filter(max_value > 3000) |> #
+  pull(pref)
+highlighted_prefs
+ggplot(data = df_harvest |> filter(!pref %in% c("全国", "北海道", "沖縄県"))) +#
+  geom_line(aes(x = year, y = value, group = pref, color = pref)) +#
+  gghighlight(value > 3000) +#
+  geom_text(data = df_max_values |> filter(pref != "全国"), aes(x = 2000, y = max_value, label = pref), hjust = 1.5, family = "HiraKakuProN-W3") +#
+  labs(title = "キウイフルーツの収穫量", x = "年", y = "収穫量（t）") +#
+  theme_minimal() +#
+  theme(legend.title = element_blank(),#
+        text = element_text(family = "HiraKakuProN-W3"))
+table(df$year)
+valid_years <- df_ha %>%#
+  group_by(year) %>%#
+  summarize(all_na = all(is.na(value))) %>%#
+  filter(!all_na) %>%#
+  pull(year)
+valid_years
+valid_years <- df %>%#
+  group_by(year) %>%#
+  summarize(all_na = all(is.na(value))) %>%#
+  filter(!all_na) %>%#
+  pull(year)
+valid_years
+valid_years <- df %>%#
+  group_by(year) %>%#
+  summarize(all_na = all(is.na(value))) %>%#
+  filter(!all_na) %>%#
+  pull(year)
+valid_years
+str(valid_years)
+df |>#
+  filter(year %in% valid_years)
+df
+range(df$year)
+statsDataId <- "0003287627"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))
+df_2017 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)
+df_2017
+names(df_2017)
+unique(df_2017$`(F006-2017-2)集計項目`)
+head(data.frame(df_ha))
+head(data.frame(df_2017 |>#
+  mutate(year = 2017) |>#
+  mutate(pref = `(F006-2017-028)都道府県`) |>#
+  mutate(item = `(F006-2017-2)集計項目`)))
+head(data.frame(df_2017 |>#
+  mutate(year = 2017) |>#
+  mutate(pref = `(F006-2017-028)都道府県`) |>#
+  mutate(item = `(F006-2017-2)集計項目`)) |> select(pref, year, item, value))
+df
+df <- df |>#
+  filter(year %in% valid_years) |>#
+  mutate(item = `結果樹面積・10a当たり収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit))
+df <- df |>#
+  filter(year %in% valid_years) |>#
+  mutate(item = `結果樹面積・10a当たり収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+df
+df_2017
+df_2017 <- df_2017 |>#
+  mutate(year = 2017) |>#
+  mutate(pref = `(F006-2017-028)都道府県`) |>#
+  mutate(item = `(F006-2017-2)集計項目`) |>#
+  select(pref, year, item, value, unit))
+df_2017 <- df_2017 |>#
+  mutate(year = 2017) |>#
+  mutate(pref = `(F006-2017-028)都道府県`) |>#
+  mutate(item = `(F006-2017-2)集計項目`) |>#
+  select(pref, year, item, value, unit)
+df_2017
+statsDataId <- "0002018868"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))
+df_2021 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)
+df_2021
+names(df_2021)
+df_2021 <- df_2021 |>#
+  mutate(year = 2021) |>#
+  mutate(pref = `(F006-03-2-017)全国・都道府県`) |>#
+  mutate(item = `(F006-03-1-004)面積・収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+df_2021
+statsDataId <- "0001931847"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))
+df_2020 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)
+df_2020
+names(df_2020)
+df_2020 <- df_2020 |>#
+  mutate(year = 2021) |>#
+  mutate(pref = `(F006-02-2-004)都道府県`) |>#
+  mutate(item = `(F006-02-1-004)面積・収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+df_2020
+statsDataId <- "0001791217"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))
+df_2018 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)
+names(df_2018)
+df_2018
+df_2018 <- df_2018 |>#
+  mutate(year = 2017) |>#
+  mutate(pref = `(F006-30-2-002)都道府県`) |>#
+  mutate(item = `(F006-30-1-004)対比無し_集計項目`) |>#
+  select(pref, year, item, value, unit)
+df_2018
+library(estatapi)#
+#
+appId <- keyring::key_get("e-stat")#
+statsDataId <- "0003313884"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))#
+#
+# 統計データ取得#
+df <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)#
+#
+library(dplyr)#
+library(tidyr)#
+#
+df$year <- as.integer(sub("年", "", df$`時間軸（年次）`))#
+unique_prefecture <- unique(df$`全国、都府県、全国農業地域`)#
+df$pref <- factor(df$`全国、都府県、全国農業地域`, levels = unique_prefecture, labels = unique_prefecture)#
+#
+# すべてNAの年のデータを削除#
+valid_years <- df %>%#
+  group_by(year) %>%#
+  summarize(all_na = all(is.na(value))) %>%#
+  filter(!all_na) %>%#
+  pull(year)#
+df <- df |>#
+  filter(year %in% valid_years) |>#
+  mutate(item = `結果樹面積・10a当たり収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+pref
+df
+statsDataId <- "0003287627"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))#
+#
+# 統計データ取得#
+df_2017 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)#
+#
+df_2017 <- df_2017 |>#
+  mutate(year = 2017) |>#
+  mutate(pref = `(F006-2017-028)都道府県`) |>#
+  mutate(item = `(F006-2017-2)集計項目`) |>#
+  select(pref, year, item, value, unit)
+statsDataId <- "0001791217"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))#
+#
+# 統計データ取得#
+df_2018 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)#
+#
+df_2018 <- df_2018 |>#
+  mutate(year = 2017) |>#
+  mutate(pref = `(F006-30-2-002)都道府県`) |>#
+  mutate(item = `(F006-30-1-004)対比無し_集計項目`) |>#
+  select(pref, year, item, value, unit)
+statsDataId <- "0001931847"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))#
+#
+# 統計データ取得#
+df_2020 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)#
+#
+df_2020 <- df_2020 |>#
+  mutate(year = 2021) |>#
+  mutate(pref = `(F006-02-2-004)都道府県`) |>#
+  mutate(item = `(F006-02-1-004)面積・収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+statsDataId <- "0002018868"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))#
+#
+# 統計データ取得#
+df_2021 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)#
+#
+df_2021 <- df_2021 |>#
+  mutate(year = 2021) |>#
+  mutate(pref = `(F006-03-2-017)全国・都道府県`) |>#
+  mutate(item = `(F006-03-1-004)面積・収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+df <- cbind(df, df_2017, df_2018, df_2020, df_2021)
+names(df)
+names(df_2017)
+names(df_2018)
+names(df_2020)
+names(df_2021)
+df <- rbind(df, df_2017, df_2018, df_2020, df_2021)
+df
+df_ha <- df |>#
+  filter(grepl("結果樹面積", item))#
+#
+df_harvest <- df |>#
+  filter(grepl("収穫量", item))#
+#
+df_shipment <- df |>#
+  filter(grepl("出荷量", item))
+range(df$year)
+df_2017
+df_2018
+df_2020
+df_2021
+str(df_2020)
+unique(df_2020$pref)
+statsDataId <- "0001931847"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))#
+#
+# 統計データ取得#
+df_2020 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)
+df_2020 |>#
+  mutate(year = 2021) |>#
+  filter(grepl("全国|（都道府県）", `(F006-02-2-004)都道府県`)) |>#
+  mutate(pref = sub("（都道府県）_", "", `(F006-02-2-004)都道府県`)) |>#
+  mutate(item = `(F006-02-1-004)面積・収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+a<-df_2020 |>#
+  mutate(year = 2021) |>#
+  filter(grepl("全国|（都道府県）", `(F006-02-2-004)都道府県`)) |>#
+  mutate(pref = sub("（都道府県）_", "", `(F006-02-2-004)都道府県`)) |>#
+  mutate(item = `(F006-02-1-004)面積・収量・収穫量・出荷量`) |>#
+  select(pref, year, item, value, unit)
+table(a$pref)
+df_2020 |>#
+  mutate(year = 2021) |>#
+  filter(grepl("全国|（都道府県）", `(F006-02-2-004)都道府県`))
+df_2020 |>#
+  mutate(year = 2021) |>#
+  filter(grepl("全国|（都道府県）_", `(F006-02-2-004)都道府県`)) |>#
+  mutate(pref = sub("（都道府県）_", "", `(F006-02-2-004)都道府県`))
+df_2020 |>#
+  mutate(year = 2021) |>#
+  filter(grepl("全国|（都道府県）_", `(F006-02-2-004)都道府県`)) |>#
+  filter(!grepl("（全国農業地域）_", `(F006-02-2-004)都道府県`))
+df_2020 |>#
+  mutate(year = 2021) |>#
+  filter(grepl("^全国|（都道府県）_", `(F006-02-2-004)都道府県`))
+df_2020
+df_2019
+df_2018
+df_2017
+df_2021
+table(df_2021$pref)
+ifelse(df_2021$pref %in% c("北海道", "東京", "京都", "大阪"),#
+  paste0(df_2021$pref, c("", "都", "府", "府")[match(df_2021$pref, c("北海道", "東京", "京都", "大阪"))]),#
+  paste0(df_2021$pref, "県"))
+ifelse(df_2021$pref %in% c("全国", "北海道", "東京", "京都", "大阪"),#
+  paste0(df_2021$pref, c("", "", "都", "府", "府")[match(df_2021$pref, c("全国", "北海道", "東京", "京都", "大阪"))]),#
+  paste0(df_2021$pref, "県"))
+df
+df_wide <- df |>#
+  pivot_wider(names_from = pref, values_from = value)
+df_wide
+names(df_wide)
+library(DT)
+statsDataId <- "0003424060"#
+#
+# メタ情報取得#
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))#
+#
+# 統計データ取得#
+df_2019 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId#
+)
+df_2019
+names(df_2019)
+meta_info
+meta_info$cat02$`@code`[grep("キウイフルーツ", meta_info$cat02$`@name`)]
+cat02 = meta_info$cat02$`@code`[grep("キウイフルーツ", meta_info$cat02$`@name`)]#
+#
+# 統計データ取得#
+df <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId,#
+  cat02 = cat02#
+)
+df
+cdCat02 = meta_info$cat02$`@code`[grep("キウイフルーツ", meta_info$cat02$`@name`)]#
+#
+# 統計データ取得#
+df <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId,#
+  cdCat02 = cdCat02#
+)
+df
+df_2019 <- estat_getStatsData(#
+  appId = appId,#
+  statsDataId = statsDataId,#
+  cdCat02 = cdCat02#
+)
+df_2019
+names(df_2019)
+unique(df_2019$"(F006-30-2-006)年次")
+df_2019 <- df_2019 |>#
+  mutate(year = 2019) |>#
+  mutate(pref = `(F006-30-2-002)都道府県`) |>#
+  mutate(item = `(F006-1-007)集計項目`) |>#
+  select(pref, year, item, value, unit)
+unique(df_2019$pref)
+setwd("~/Desktop/tmp/Kiwifruit/Quarto/")
+library(readxl)#
+library(tidyr)#
+#
+d0 <- read_excel("../data/questionnaire/20231102_questionnaire.xlsx")
+d_jaehimechuo <- read_excel("../data/questionnaire/20231102_questionnaire.xlsx")
+d_jaehimechuo
+d_JAehimechuo <- read_excel("../data/questionnaire/JAehimechuo/20231102_questionnaire.xlsx")
+d_JAehimechuo
+table(d_JAehimechuo$q_3)
+table(d_JAehimechuo$q3)
+table(d_JAehimechuo$q3_male)
+table(d_JAehimechuo$q1)
+table(d_JAehimechuo$q2_hayward)
+table(d_JAehimechuo$q2_Hayward)
+table(d_JAehimechuo$q2_Hayward, d_JAehimechuo$q3_male)
+plot(d_JAehimechuo$q2_Hayward, d_JAehimechuo$q3_male)
+plot(d_JAehimechuo$q3_male/d_JAehimechuo$q2_Hayward)
+plot(d_JAehimechuo$q2_Hayward, d_JAehimechuo$q3_male)
+plot(d_JAehimechuo$q2_Hort16A, d_JAehimechuo$q3_male)
+plot(d_JAehimechuo$q2_SunGold, d_JAehimechuo$q3_male)
+plot(d_JAehimechuo$q3_male, d_JAehimechuo$q6)
+plot(d_JAehimechuo$q3_male, d_JAehimechuo$q6_2)
+plot(d_JAehimechuo$q1, d_JAehimechuo$q6_2)
+plot(d_JAehimechuo$q2_Hayword, d_JAehimechuo$q6_2)
+plot(d_JAehimechuo$q2_Hayward, d_JAehimechuo$q6_2)
+plot(d_JAehimechuo$q2_Hayward, d_JAehimechuo$q7)
+plot(d_JAehimechuo$q2_Hayward, d_JAehimechuo$q6_2)
+plot(d_JAehimechuo$q7, d_JAehimechuo$q6_2)
+plot(d_JAehimechuo$q7, d_JAehimechuo$q3_male)
+plot(d_JAehimechuo$q11, d_JAehimechuo$q6_2)
+plot(d_JAehimechuo$q11, d_JAehimechuo$q8)
+plot(d_JAehimechuo$q3, d_JAehimechuo$q8)
+d_JAehimechuo
+summary(d_JAehimechuo)
+nrow(d_JAehimechuo)
+d0 <- rbind(d_JAehimechuo)
+d0
+table(d0$q2)
+d0
+table(d0$q1)
+names(d0)
+table(d0$q2_SunGold)
+table(d0$q2_Hort16A)
+table(d0$q4)
+ifelse(d0$q4 == 1, q4_2_1, ifelse(d0$q4 == 2, q4_2_2, NA))
+ifelse(d0$q4 == 1, q4_1, ifelse(d0$q4 == 2, q4_2_1, NA))
+ifelse(d0$q4 == 1, d0$q4_1, ifelse(d0$q4 == 2, d0$q4_2_1, NA))
+ifelse(d0$q4 == 1, 2023, ifelse(d0$q4 == 2, d0$q4_2_2, NA))
+d0$q4 == 3
+plot(d0$q4 == 3, d0$q3_male)
+table(d0$q4 == 3)
+table(d0$q15)
+plot(d0$q15, d0$q4 == 3)
+plot(d0$q1, d0$q4 == 3)
+plot(d0$q1, d0$q3_male)
+plot(d0$q15, d0$q3_male)
+plot(d0$q15, d0$q7)
+plot(d0$q15, d0$q9)
+plot(d0$q9)
+plot(d0$q10, d0$q9)
+plot(d0$q10, d0$q2_Hort16A > 0)
+plot(d0$q10, d0$q2_SunGold > 0)
+plot(d0$q11, d0$q2_SunGold > 0)
+plot(d0$q11, d0$q2_Hort16A > 0)
+plot(d0$q11, d0$q2_Hayward > 0)
+table(d0$q2_Hayward > 0)
+table(d0$q2_Hayward)
+table(d0$q3)
+plot(d0$q1, d0$q4 == 3)
+plot(d0$q15, d0$q4 == 3)
+setwd("~/Documents/GitHub/Agricultural_Markets/Q")
+setwd("~/Documents/GitHub/Agricultural_Markets/R/")
+library(readr)#
+library(ggplot2)#
+library(ggsci)#
+#
+d <- read_csv("../data/卸売市場経由率の推移.csv")#
+d_long <- pivot_longer(d)#
+#
+ggplot(data = d) +#
+  geom_line(aes(x = "年度", y = value, group = name, colour = name)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(text = element_text(family = "HiraKakuProN-W3")) +#
+  scale_color_d3()
+d_long <- pivot_longer(d, cols = -年度, names_to = "name", values_to = "value")#
+#
+ggplot(data = d) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(text = element_text(family = "HiraKakuProN-W3")) +#
+  scale_color_d3()
+d_long
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(text = element_text(family = "HiraKakuProN-W3")) +#
+  scale_color_d3()
+d_long$name <- factor(d_long$name, levels = unique(d_long$name))#
+#
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(text = element_text(family = "HiraKakuProN-W3")) +#
+  scale_color_d3()
+year_2000 <- d_long %>% filter(年度 == 2000)
+d_long
+year_2000 <- d_long |> filter(年度 == 2000)
+year_2000 <- d_long |> dplyr::filter(年度 == 2000)
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2000, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()
+year_2010 <- d_long |> dplyr::filter(年度 == 2010)#
+#
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()
+ggsave("wholesale_market_trends.pdf", plot = g, device = "pdf", path = ".", width = 11, height = 8)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.pdf", plot = g, device = "pdf", path = ".", width = 11, height = 8)
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 11, height = 8)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 11, height = 8)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_minimal() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+#  scale_y_continuous(breaks = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.5, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 0.8, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 1, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 1.5, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = TRUE) +#
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = TRUE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2, check_overlap = TRUE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 1.5, check_overlap = TRUE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+library(ggrepel)
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  geom_text_repel(aes(label = value), show.legend = TRUE) +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  geom_text_repel(aes(label = value), show.legend = FALSE) +#
+  theme_bw()
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  geom_label_repel(aes(label = label)) +#
+  theme_bw()
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  geom_label_repel(aes(label = name)) +#
+  theme_bw()
+ggplot(data = d_long) +#
+  geom_line(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_point(aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_label_repel(aes(x = 年度, y = value, label = name, colour = name), #
+                   nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw()
+g <- ggplot(data = d_long, aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_line() +#
+  geom_point() +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+g <- ggplot(data = d_long, aes(x = 年度, y = value, group = name, colour = name)) +#
+  geom_line() +#
+  geom_point() +#
+  geom_text(data = year_2010, aes(x = 年度, y = value, label = name, colour = name), #
+            nudge_x = 0.5, nudge_y = 2.5, check_overlap = FALSE) +#
+  scale_y_continuous(limits = c(0, 100)) +#
+  labs(title = "卸売市場経由率の推移", y = "%", x = "年度", caption = "農林水産省(2022)「令和3年度 卸売市場データ集」") +#
+  theme_bw() +#
+  theme(#
+    text = element_text(family = "HiraKakuProN-W3"),#
+    legend.position = "none"#
+  ) +#
+  scale_color_d3()#
+#
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 8, height = 5)
+ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 10, height = 5)

@@ -7,18 +7,16 @@ digraph market_vegetables {
         fillcolor = white, 
         width = 1.4,
         fixedsize = false]
-  農協; 集出荷業者; 卸売業者; 仲卸業者; 売買参加者; 小売業者
+  "卸売業者\n（漁協）"; 買受人; 卸売業者; 仲卸業者; 売買参加者; 小売業者
   node [shape = circle,
         width = 0.9,
         fixedsize = false]
   生産者; 消費者
 
   edge [fontname = Helvetica]
-  生産者->農協
-  生産者->集出荷業者
-  生産者->卸売業者
-  農協->卸売業者
-  集出荷業者->卸売業者
+  生産者->"卸売業者\n（漁協）"
+  "卸売業者\n（漁協）"->買受人
+  買受人->卸売業者
   卸売業者->仲卸業者
   卸売業者->売買参加者
   仲卸業者->小売業者
@@ -28,7 +26,14 @@ digraph market_vegetables {
   売買参加者 -> 仲卸業者 [style = invis]
 
   subgraph cluster0 {
-    label = "卸売市場"
+    label = "産地卸売市場"
+    fontname = Helvetica
+    bgcolor = "#F9EFF1"
+    style = "dashed,rounded"
+    {"卸売業者\n（漁協）"; 買受人}
+  }
+  subgraph cluster1 {
+    label = "消費地卸売市場"
     fontname = Helvetica
     bgcolor = "#F9EFF1"
     style = "dashed,rounded"
