@@ -1,0 +1,40 @@
+digraph market_milk {
+  graph [rankdir = LR]
+
+  node [shape = box,
+        fontname = Helvetica,
+        style = filled,
+        fillcolor = white, 
+        width = 1.4,
+        fixedsize = false]
+  農協; "ホクレン・\n都府県広域連合会"; 県連合会など; 全農・全酪連; 乳業メーカー
+  生乳卸売業者; "加工農協\n（自家加工含む）"
+  node [shape = circle,
+        width = 0.9,
+        fixedsize = true]
+  "生産者\n（酪農家）"
+
+  edge [fontname = Helvetica]
+  "生産者\n（酪農家）"->農協 [label = "委託販売"]
+  農協->"ホクレン・\n都府県広域連合会" [label = "委託販売"]
+  農協->県連合会など [label = "委託販売"]
+  県連合会など->"ホクレン・\n都府県広域連合会" [label = "委託販売"]
+  "ホクレン・\n都府県広域連合会"->全農・全酪連 [label = "委託販売"]
+  全農・全酪連->乳業メーカー
+  "ホクレン・\n都府県広域連合会"->乳業メーカー
+  "生産者\n（酪農家）"->生乳卸売業者
+  生乳卸売業者->乳業メーカー
+  "生産者\n（酪農家）"->乳業メーカー
+  "生産者\n（酪農家）"->"加工農協\n（自家加工含む）" [label = "委託販売"]
+
+  subgraph cluster0 {
+    label = "工場"
+    fontname = Helvetica
+    bgcolor = "#F9EFF1"
+    style = "dashed,rounded"
+    {乳業メーカー; "加工農協\n（自家加工含む）"}
+    subgraph sub {
+      {rank = same; 乳業メーカー; "加工農協\n（自家加工含む）"}
+    }
+  }
+}

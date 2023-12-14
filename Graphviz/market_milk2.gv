@@ -1,0 +1,30 @@
+digraph market_milk {
+  graph [rankdir = LR]
+
+  node [shape = box,
+        fontname = Helvetica,
+        style = filled,
+        fillcolor = white, 
+        width = 1.4,
+        fixedsize = false]
+  工場; 学校給食; 集団飲用; 牛乳販売店; 二次店; 自動販売機; 家庭配達; 量販店
+  node [shape = circle,
+        width = 0.9,
+        fixedsize = true]
+  消費者
+
+  edge [fontname = Helvetica]
+  工場->学校給食
+  工場->集団飲用
+  工場->牛乳販売店
+  牛乳販売店->二次店
+  牛乳販売店->自動販売機
+  牛乳販売店->家庭配達
+  牛乳販売店->量販店
+  二次店->消費者
+  自動販売機->消費者
+  家庭配達->消費者
+  工場->量販店
+  量販店->消費者
+
+}
