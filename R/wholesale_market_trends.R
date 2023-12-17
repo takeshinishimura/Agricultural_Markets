@@ -21,9 +21,9 @@ g <- ggplot(data = d_long, aes(x = 年度, y = value, group = name, colour = nam
        caption = "農林水産省(2022)「令和3年度 卸売市場データ集」") +
   theme_bw() +
   theme(
-    text = element_text(family = "HiraKakuProN-W3"),
+    text = element_text(family = "Hiragino Sans"),
     legend.position = "none"
   ) +
   scale_color_d3()
 
-ggsave("wholesale_market_trends.png", plot = g, device = "png", path = ".", width = 10, height = 5)
+ggsave("wholesale_market_trends.pdf", plot = g, device = cairo_pdf, path = ".", width = 10, height = 5)
