@@ -16,7 +16,7 @@ lang: ja
 
 国民の消費生活上重要な財の価格変動。
 
-## 価格データ取得
+## 小売価格データ
 
 ::: {.callout-note collapse="true" icon="true"}
 ## 総務省統計局　小売物価統計調査　小売物価統計調査（動向編）
@@ -38,6 +38,7 @@ library(ggplot2)
 library(gghighlight)
 library(scales)
 library(ggsci)
+library(viridis)
 
 outdir <- "../data"
 dir.create(outdir, showWarnings = FALSE)
@@ -65,7 +66,9 @@ items <- c(
 )
 ```
 
-項目ごとに出力する。
+
+## 項目ごとにデータ取得して出力
+
 ```{r}
 #| message: false
 for (item in items) {
@@ -120,7 +123,7 @@ g <- ggplot(data = df |> filter(地域 != "全国平均")) +
     y = "価格（円）",
     x = "年",
     color = "",
-    caption = "出所：総務省統計局「小売物価統計調査（動向編）」"
+    caption = "出典：総務省統計局「小売物価統計調査（動向編）」"
   ) +
   theme_bw() +
   scale_color_d3()
@@ -142,12 +145,13 @@ df2 <- df |>
 g2 <- ggplot(data = df2, aes(x = Month, y = value, group = Year, color = as.factor(Year))) +
   geom_line() +
   scale_y_continuous(labels = comma) +
+  scale_color_viridis(discrete = TRUE, option = "G") +
   labs(
     title = paste0(item, "の価格推移（松山市）"),
     y = "価格（円）",
     x = "月",
     color = "年",
-    caption = "出所：総務省統計局「小売物価統計調査（動向編）」"
+    caption = "出典：総務省統計局「小売物価統計調査（動向編）」"
   ) +
   theme_bw()
 
