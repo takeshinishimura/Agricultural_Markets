@@ -26,6 +26,7 @@ lang: ja
 ```{r}
 #| message: false
 library(readr)
+library(tidyr)
 library(ggplot2)
 library(gghighlight)
 library(ggsci)
@@ -35,7 +36,7 @@ dir.create(figdir, showWarnings = FALSE)
 
 d <- read_csv("../data/卸売市場経由率の推移.csv")
 
-d_long <- pivot_longer(d, cols = -年度, names_to = "name", values_to = "value")
+d_long <- tidyr::pivot_longer(d, cols = -年度, names_to = "name", values_to = "value")
 d_long$name <- factor(d_long$name, levels = unique(d_long$name))
 
 g <- ggplot(data = d_long, aes(x = 年度, y = value, group = name, colour = name)) +
@@ -56,5 +57,5 @@ g <- ggplot(data = d_long, aes(x = 年度, y = value, group = name, colour = nam
 g + theme(text = element_text(family = "HiraKakuProN-W3"))
 
 ggsave(filename = "wholesale_market_trends.pdf", plot = g, path = figdir, width = 10, height = 5)
-# ggsave("wholesale_market_trends.pdf", plot = g, device = cairo_pdf, path = ".", width = 10, height = 5)
+ggsave("wholesale_market_trends_cairo.pdf", plot = g, device = cairo_pdf, path = figdir, width = 10, height = 5)
 ```
