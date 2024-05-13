@@ -2,7 +2,7 @@
 project:
   type: website
   output-dir: docs
-title: "トマトの価格"
+title: "小売価格"
 format:
   html:
     toc: true
