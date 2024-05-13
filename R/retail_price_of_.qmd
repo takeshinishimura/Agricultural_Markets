@@ -105,7 +105,7 @@ new_row$time <- avg_values$time
 df <- rbind(df, data.frame(new_row, check.names = FALSE))
 
 # データ保存
-write.table(df, file = file.path(outdir, paste0("retail_price", item, "_all.csv")), sep = ",", row.names = FALSE)
+write.table(df, file = file.path(outdir, paste0("retail_price_", item, "_all.csv")), sep = ",", row.names = FALSE)
 
 # 価格推移の折れ線グラフの作図
 g <- ggplot(data = df |> filter(地域 != "全国平均")) +
@@ -128,7 +128,7 @@ g <- ggplot(data = df |> filter(地域 != "全国平均")) +
 print(unique(df$annotation))
 print(g + theme(text = element_text(family = "HiraKakuProN-W3")))
 
-ggsave(filename = file.path(figdir, paste0("retail_price", item, "_all", ".pdf")), plot = g, width = 8, height = 4)
+ggsave(filename = file.path(figdir, paste0("retail_price_", item, "_all", ".pdf")), plot = g, width = 8, height = 4)
 
 
 df2 <- df |>
@@ -153,7 +153,7 @@ g2 <- ggplot(data = df2, aes(x = Month, y = value, group = Year, color = as.fact
 
 print(g2 + theme(text = element_text(family = "HiraKakuProN-W3")))
 
-ggsave(filename = file.path(figdir, paste0("retail_price", item, "_yearly", ".pdf")), plot = g2, width = 8, height = 4)
+ggsave(filename = file.path(figdir, paste0("retail_price_", item, "_yearly", ".pdf")), plot = g2, width = 8, height = 4)
 
 }
 ```
