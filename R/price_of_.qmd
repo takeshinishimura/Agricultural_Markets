@@ -1,0 +1,159 @@
+---
+project:
+  type: website
+  output-dir: docs
+title: "トマトの価格"
+format:
+  html:
+    toc: true
+    toc-title: 目次
+    toc_float: true
+    toc-depth: 3
+    number-sections: true
+    theme: lumen
+lang: ja
+---
+
+国民の消費生活上重要な財の価格変動。
+
+## 価格データ取得
+
+::: {.callout-note collapse="true" icon="true"}
+## 総務省統計局　小売物価統計調査　小売物価統計調査（動向編）
+
+[https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00200571&tstat=000000680001&cycle=1&tclass1val=0](https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00200571&tstat=000000680001&cycle=1&tclass1val=0){target="_blank"}
+:::
+
+[小売物価統計調査 小売物価統計調査（動向編）主要品目の都市別小売価格－都道府県庁所在市及び人口15万以上の市(2000年1月～) | 統計表・グラフ表示 | 政府統計の総合窓口](https://www.e-stat.go.jp/dbview?sid=0003421913){target="_blank"} からデータを入手する。
+
+ただし，`e-stat`のAPIは，一度のリクエストで取得できるデータの行数に制限がある場合がある。
+この制限を超えるデータを取得するために，ページネーションを利用して複数回のリクエストを行い，それぞれの結果を結合する。
+
+```{r}
+#| message: false
+library(estatapi)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(gghighlight)
+library(scales)
+library(ggsci)
+
+outdir <- "../data"
+dir.create(outdir, showWarnings = FALSE)
+figdir <- "../fig"
+dir.create(figdir, showWarnings = FALSE)
+
+appId <- keyring::key_get("e-stat")
+statsDataId <- "0003421913"
+
+# メタ情報取得
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))
+
+items <- c(
+  "うるち米\\(単一原料米,「コシヒカリ」\\)", "食パン", "小麦粉",
+  "えび", "かつお$",
+  "牛肉\\(国産品\\)",  "豚肉\\(国産品,バラ\\)【2014年12月までロースを調査】",
+  "牛乳\\(店頭売り,紙容器入り\\)", "バター", "鶏卵",
+  "キャベツ", "ほうれんそう", "はくさい$", "\\sねぎ", "レタス", "もやし", "きゅうり", "なす", "トマト", "ピーマン",
+  "\\sみかん", "しらぬひ", "いちご", "バナナ", "キウイフルーツ",
+  "しょう油", "ケチャップ",
+  "チョコレート", "アイスクリーム", "弁当\\(からあげ弁当\\)", "焼き魚", "からあげ$", "冷凍ぎょうざ",
+  "緑茶", "紅茶", "果実飲料\\(濃縮還元\\)", "野菜ジュース", "清酒$", "ビール$",
+  "学校給食\\(小学校\\)", "学校給食\\(中学校\\)",
+  "切り花\\(カーネーション\\)", "切り花\\(きく\\)", "切り花\\(バラ\\)", "鉢植え", "園芸用肥料"
+)
+```
+
+項目ごとに出力する。
+```{r}
+#| message: false
+for (item in items) {
+cdCat02 = meta_info$cat02$`@code`[grep(item, meta_info$cat02$`@name`)]
+
+item <- gsub("\\\\s|\\\\|\\$", "", item)
+
+# 統計データ取得
+df <- estat_getStatsData(
+  appId = appId,
+  statsDataId = statsDataId,
+  cdCat02 = cdCat02
+)
+
+df$time <- as.Date(lubridate::ymd(paste0(gsub("年", "-", df$`時間軸（月）`), "-01")))
+
+# 不要なデータを削除
+df <- df |>
+  filter(!grepl("1901|1912|1952|2025|2027|2171", 銘柄))
+## 1901 緑茶(番茶，上)【2006年12月調査終了】
+## 1912 紅茶(輸入品)【2004年12月調査終了】
+## 1952 ノンアルコールビール
+## 2025 ビール(輸入品)【2006年12月調査終了】
+## 2027 ビール風アルコール飲料
+## 2171 ビール(外食)
+
+# 全国平均価格を計算
+avg_values <- df |>
+  group_by(time) |>
+  summarise(avg_value = mean(value, na.rm = TRUE))
+
+# df <- left_join(df, avg_values, by = "time")
+new_row <- setNames(as.list(rep(NA, length(names(df)))), names(df))
+new_row$地域 <- "全国平均"
+new_row$value <- avg_values$avg_value
+new_row$time <- avg_values$time
+df <- rbind(df, data.frame(new_row, check.names = FALSE))
+
+# データ保存
+write.table(df, file = file.path(outdir, paste0("retail_price", item, "_all.csv")), sep = ",", row.names = FALSE)
+
+# 価格推移の折れ線グラフの作図
+g <- ggplot(data = df |> filter(地域 != "全国平均")) +
+  geom_line(aes(x = time, y = value, group = 地域, color = "松山市")) +
+  gghighlight(地域 == "松山市") +
+# geom_point(aes(y = value, color = "松山市")) +
+  geom_line(data = df |> filter(地域 == "全国平均"), aes(x = time, y = value, group = 地域, color = "全国平均")) +
+# geom_point(aes(y = value, color = "全国平均")) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = paste0(item, "の価格推移"),
+    y = "価格（円）",
+    x = "年",
+    color = "",
+    caption = "出所：総務省統計局「小売物価統計調査（動向編）」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+
+print(unique(df$annotation))
+print(g + theme(text = element_text(family = "HiraKakuProN-W3")))
+
+ggsave(filename = file.path(figdir, paste0("retail_price", item, "_all", ".pdf")), plot = g, width = 8, height = 4)
+
+
+df2 <- df |>
+  filter(地域 == "松山市") |>
+  mutate(
+    Year = lubridate::year(time),
+#   Month = lubridate::month(time, label = TRUE, abbr = TRUE) # 日本語環境だと期待通りにならない
+    Month = factor(month.abb[lubridate::month(time)], levels = month.abb, ordered = TRUE)
+  )
+
+g2 <- ggplot(data = df2, aes(x = Month, y = value, group = Year, color = as.factor(Year))) +
+  geom_line() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = paste0(item, "の価格推移（松山市）"),
+    y = "価格（円）",
+    x = "月",
+    color = "年",
+    caption = "出所：総務省統計局「小売物価統計調査（動向編）」"
+  ) +
+  theme_bw()
+
+print(g2 + theme(text = element_text(family = "HiraKakuProN-W3")))
+
+ggsave(filename = file.path(figdir, paste0("retail_price", item, "_yearly", ".pdf")), plot = g2, width = 8, height = 4)
+
+}
+```
