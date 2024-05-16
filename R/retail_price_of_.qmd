@@ -111,12 +111,9 @@ df <- rbind(df, data.frame(new_row, check.names = FALSE))
 write.table(df, file = file.path(outdir, paste0("retail_price_", item, "_all.csv")), sep = ",", row.names = FALSE)
 
 # 価格推移の折れ線グラフの作図
-g <- ggplot(data = df |> filter(地域 != "全国平均")) +
-  geom_line(aes(x = time, y = value, group = 地域, color = "松山市")) +
-  gghighlight(地域 == "松山市") +
-# geom_point(aes(y = value, color = "松山市")) +
-  geom_line(data = df |> filter(地域 == "全国平均"), aes(x = time, y = value, group = 地域, color = "全国平均")) +
-# geom_point(aes(y = value, color = "全国平均")) +
+g <- ggplot(data = df) +
+  geom_line(aes(x = time, y = value, group = 地域, color = 地域)) +
+  gghighlight(grepl("松山市|全国平均", 地域)) +
   scale_y_continuous(labels = comma) +
   labs(
     title = paste0(item, "の価格推移"),
@@ -157,7 +154,7 @@ g2 <- ggplot(data = df2, aes(x = Month, y = value, group = Year, color = as.fact
 
 print(g2 + theme(text = element_text(family = "HiraKakuProN-W3")))
 
-ggsave(filename = file.path(figdir, paste0("retail_price_", item, "_yearly", ".pdf")), plot = g2, width = 8, height = 4)
+ggsave(filename = paste0("retail_price_", item, "_yearly.pdf"), plot = g2, path = figdir, width = 8, height = 4)
 
 }
 ```
