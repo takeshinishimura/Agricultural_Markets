@@ -80,14 +80,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#学校給食栄養報告" id="toc-学校給食栄養報告" class="nav-link active" data-scroll-target="#学校給食栄養報告"><span class="header-section-number">1</span> 学校給食栄養報告</a></li>
-  <li><a href="#データの取得" id="toc-データの取得" class="nav-link" data-scroll-target="#データの取得"><span class="header-section-number">2</span> データの取得</a></li>
-  <li><a href="#データの変換" id="toc-データの変換" class="nav-link" data-scroll-target="#データの変換"><span class="header-section-number">3</span> データの変換</a></li>
-  <li><a href="#散布図" id="toc-散布図" class="nav-link" data-scroll-target="#散布図"><span class="header-section-number">4</span> 散布図</a></li>
-  <li><a href="#特徴のある食材を強調" id="toc-特徴のある食材を強調" class="nav-link" data-scroll-target="#特徴のある食材を強調"><span class="header-section-number">5</span> 特徴のある食材を強調</a>
+  <li><a href="#平成29年度" id="toc-平成29年度" class="nav-link" data-scroll-target="#平成29年度"><span class="header-section-number">2</span> 2017（平成29）年度</a>
   <ul class="collapse">
-  <li><a href="#輸入に依存している食材" id="toc-輸入に依存している食材" class="nav-link" data-scroll-target="#輸入に依存している食材"><span class="header-section-number">5.1</span> 輸入に依存している食材</a></li>
-  <li><a href="#国内の特定地域に依存している食材" id="toc-国内の特定地域に依存している食材" class="nav-link" data-scroll-target="#国内の特定地域に依存している食材"><span class="header-section-number">5.2</span> 国内の特定地域に依存している食材</a></li>
-  <li><a href="#地産地消が進んでいる食材" id="toc-地産地消が進んでいる食材" class="nav-link" data-scroll-target="#地産地消が進んでいる食材"><span class="header-section-number">5.3</span> 地産地消が進んでいる食材</a></li>
+  <li><a href="#データの取得" id="toc-データの取得" class="nav-link" data-scroll-target="#データの取得"><span class="header-section-number">2.1</span> データの取得</a></li>
+  <li><a href="#データの変換" id="toc-データの変換" class="nav-link" data-scroll-target="#データの変換"><span class="header-section-number">2.2</span> データの変換</a></li>
+  <li><a href="#散布図" id="toc-散布図" class="nav-link" data-scroll-target="#散布図"><span class="header-section-number">2.3</span> 散布図</a></li>
+  <li><a href="#特徴のある食材を強調" id="toc-特徴のある食材を強調" class="nav-link" data-scroll-target="#特徴のある食材を強調"><span class="header-section-number">2.4</span> 特徴のある食材を強調</a></li>
+  </ul></li>
+  <li><a href="#令和元年度" id="toc-令和元年度" class="nav-link" data-scroll-target="#令和元年度"><span class="header-section-number">3</span> 2019（令和元）年度</a>
+  <ul class="collapse">
+  <li><a href="#散布図-1" id="toc-散布図-1" class="nav-link" data-scroll-target="#散布図-1"><span class="header-section-number">3.1</span> 散布図</a></li>
+  <li><a href="#特徴のある食材を強調-1" id="toc-特徴のある食材を強調-1" class="nav-link" data-scroll-target="#特徴のある食材を強調-1"><span class="header-section-number">3.2</span> 特徴のある食材を強調</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -128,13 +131,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><a href="https://www.e-stat.go.jp/stat-search/files?page=1&amp;toukei=00400803&amp;tstat=000001016938" target="_blank">https://www.e-stat.go.jp/stat-search/files?page=1&amp;toukei=00400803&amp;tstat=000001016938</a></p>
+<p><a href="https://www.e-stat.go.jp/statistics/00400803" target="_blank">https://www.e-stat.go.jp/statistics/00400803</a></p>
 </div>
 </div>
 </div>
 <p>::: {.callout-note collapse=“true” icon=“true”} ##</p>
-<p><a href="https://www.e-stat.go.jp/stat-search/database?statdisp_id=0003328454" target="_blank">学校給食における地場産物・国産食材の使用割合（食材別）</a> からデータを入手する。</p>
-<p>ただし，<code>e-stat</code>のAPIは，一度のリクエストで取得できるデータの行数に制限がある場合がある。 この制限を超えるデータを取得するために，ページネーションを利用して複数回のリクエストを行い，それぞれの結果を結合する。</p>
+</section>
+<section id="平成29年度" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="平成29年度"><span class="header-section-number">2</span> 2017（平成29）年度</h2>
+<p><a href="https://www.e-stat.go.jp/stat-search/files?stat_infid=000031736237" target="_blank">地場産物・国産食材の使用割合（食材別）</a> からデータを入手する。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estatapi)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -200,9 +205,8 @@ $.names
 4 time  時間軸（年度）    </code></pre>
 </div>
 </div>
-</section>
-<section id="データの取得" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="データの取得"><span class="header-section-number">2</span> データの取得</h2>
+<section id="データの取得" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="データの取得"><span class="header-section-number">2.1</span> データの取得</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 統計データ取得</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">estat_getStatsData</span>(</span>
@@ -214,10 +218,10 @@ $.names
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(df, <span class="at">file =</span> <span class="fu">file.path</span>(outdir, <span class="st">"kyushoku.csv"</span>), <span class="at">sep =</span> <span class="st">","</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="データの変換" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="データの変換"><span class="header-section-number">3</span> データの変換</h2>
+<section id="データの変換" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="データの変換"><span class="header-section-number">2.2</span> データの変換</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df2017 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="st">`</span><span class="at">時間軸（年度）</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"2017年度"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>cat02_code) <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">`</span><span class="at">地場産物・国産食材</span><span class="st">`</span>, <span class="at">values_from =</span> value)</span>
@@ -229,7 +233,7 @@ $.names
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"葉菜類"</span>)</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"トマト類|きゅうり|すいか|すもも類|さくらんぼ|パインアップル|バナナ|びわ|ぶどう|ブルーベリー|マンゴー|メロン|もも類|りんご|なし類|いちご|いちじく|オリーブ|キウイフルーツ|かき"</span>, food)) {</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"果菜類"</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"うし|うずら卵|うま|にわとり|ぶた|かも"</span>, food)) {</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"うし|うずら卵|うま|にわとり|ぶた|かも|いのしし"</span>, food)) {</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"肉"</span>)</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"あさり|あじ類|あまご|あまのり|あゆ|アラスカメヌケ|いかなご|いか類|いとよりだい|いわし類|いわな|えび類|えそ（魚類）|おきあみ|かさご|かじき類|かつお類|かに類|かます|かれい類|かわはぎ|きびなご|くじら|ぐち|くらげ|このしろ|さけ・ます類|さば類|さめ類|さより|さわら|さんま|しいら|ししゃも類|しゃこ|しらす|すずき|せり|たい類|たこ類|たちうお|たら類|とびうお|どじょう|にぎす|にしん|はたはた|はまち|ひらまさ|ふぐ|ぶり|ほたてがい|ほっけ|ほんもろこ（魚類）|まぐろ類|みずかけな|メルルーサ（魚類）|もずく類|やまめ|わかさぎ|わかめ|ホキ|したびらめ"</span>, food)) {</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"魚介類"</span>)</span>
@@ -244,20 +248,20 @@ $.names
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> df_wide <span class="sc">|&gt;</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(分類 <span class="ot">=</span> <span class="fu">sapply</span>(食材別, categorize_food))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>df2017 <span class="ot">&lt;-</span> df2017 <span class="sc">|&gt;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(分類 <span class="ot">=</span> <span class="fu">factor</span>(<span class="fu">sapply</span>(食材別, categorize_food), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"根菜類"</span>, <span class="st">"葉菜類"</span>, <span class="st">"果菜類"</span>, <span class="st">"肉"</span>, <span class="st">"魚介類"</span>, <span class="st">"乳製品"</span>, <span class="st">"穀物"</span>, <span class="st">"その他"</span>)))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="散布図" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="散布図"><span class="header-section-number">4</span> 散布図</h2>
+<section id="散布図" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="散布図"><span class="header-section-number">2.3</span> 散布図</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide, <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2017, <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「平成29年度 学校給食栄養報告」"</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
@@ -269,20 +273,20 @@ $.names
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_2017.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="特徴のある食材を強調" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="特徴のある食材を強調"><span class="header-section-number">5</span> 特徴のある食材を強調</h2>
-<section id="輸入に依存している食材" class="level3" data-number="5.1">
-<h3 data-number="5.1" class="anchored" data-anchor-id="輸入に依存している食材"><span class="header-section-number">5.1</span> 輸入に依存している食材</h3>
+<section id="特徴のある食材を強調" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="特徴のある食材を強調"><span class="header-section-number">2.4</span> 特徴のある食材を強調</h3>
+<section id="輸入に依存している食材" class="level4" data-number="2.4.1">
+<h4 data-number="2.4.1" class="anchored" data-anchor-id="輸入に依存している食材"><span class="header-section-number">2.4.1</span> 輸入に依存している食材</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_wide_x_lt025 <span class="ot">&lt;-</span> df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_wide_x_lt025[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df_wide_x_lt025))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df2017_x_lt025 <span class="ot">&lt;-</span> df2017[df2017<span class="sc">$</span>国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df2017_x_lt025[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df2017_x_lt025))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 19 × 2
    食材別             分類  
-   &lt;chr&gt;              &lt;chr&gt; 
+   &lt;chr&gt;              &lt;fct&gt; 
  1 アラスカメヌケ     魚介類
  2 いとよりだい       魚介類
  3 えび類             魚介類
@@ -303,18 +307,18 @@ $.names
 18 レンズまめ         その他
 19 わかさぎ           魚介類</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df2017[df2017<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 2
-# ℹ 2 variables: 食材別 &lt;chr&gt;, 分類 &lt;chr&gt;</code></pre>
+# ℹ 2 variables: 食材別 &lt;chr&gt;, 分類 &lt;fct&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2017 <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"輸入に依存している食材"</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「平成29年度 学校給食栄養報告」"</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
@@ -326,18 +330,18 @@ $.names
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_lt025.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_lt025_2017.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="国内の特定地域に依存している食材" class="level3" data-number="5.2">
-<h3 data-number="5.2" class="anchored" data-anchor-id="国内の特定地域に依存している食材"><span class="header-section-number">5.2</span> 国内の特定地域に依存している食材</h3>
+<section id="国内の特定地域に依存している食材" class="level4" data-number="2.4.2">
+<h4 data-number="2.4.2" class="anchored" data-anchor-id="国内の特定地域に依存している食材"><span class="header-section-number">2.4.2</span> 国内の特定地域に依存している食材</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_wide_x_gt075_y_lt075 <span class="ot">&lt;-</span> df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> df_wide<span class="sc">$</span>地場産物 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_wide_x_gt075_y_lt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df_wide_x_gt075_y_lt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df2017_x_gt075_y_lt075 <span class="ot">&lt;-</span> df2017[df2017<span class="sc">$</span>国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> df2017<span class="sc">$</span>地場産物 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df2017_x_gt075_y_lt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df2017_x_gt075_y_lt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 54 × 2
    食材別               分類  
-   &lt;chr&gt;                &lt;chr&gt; 
+   &lt;chr&gt;                &lt;fct&gt; 
  1 あおさ               葉菜類
  2 あおのり             葉菜類
  3 あさつき             葉菜類
@@ -393,11 +397,11 @@ $.names
 53 動物脂類             その他
 54 練乳類               乳製品</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> df_wide<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df2017[df2017<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> df2017<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 18 × 2
    食材別           分類  
-   &lt;chr&gt;            &lt;chr&gt; 
+   &lt;chr&gt;            &lt;fct&gt; 
  1 いかなご         魚介類
  2 いわのり         その他
  3 うま             肉    
@@ -417,14 +421,14 @@ $.names
 17 よもぎ           その他
 18 わけぎ           その他</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> 地場産物<span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2017 <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> 地場産物<span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"国内の特定地域に依存している食材"</span>,</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「平成29年度 学校給食栄養報告」"</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
@@ -436,18 +440,18 @@ $.names
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_gt075_y_lt075.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_gt075_y_lt075_2017.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="地産地消が進んでいる食材" class="level3" data-number="5.3">
-<h3 data-number="5.3" class="anchored" data-anchor-id="地産地消が進んでいる食材"><span class="header-section-number">5.3</span> 地産地消が進んでいる食材</h3>
+<section id="地産地消が進んでいる食材" class="level4" data-number="2.4.3">
+<h4 data-number="2.4.3" class="anchored" data-anchor-id="地産地消が進んでいる食材"><span class="header-section-number">2.4.3</span> 地産地消が進んでいる食材</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_wide_y_gt075 <span class="ot">&lt;-</span> df_wide[df_wide<span class="sc">$</span>地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>, ]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_wide_y_gt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df_wide_y_gt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df2017_y_gt075 <span class="ot">&lt;-</span> df2017[df2017<span class="sc">$</span>地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>, ]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df2017_y_gt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df2017_y_gt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 33 × 2
    食材別             分類  
-   &lt;chr&gt;              &lt;chr&gt; 
+   &lt;chr&gt;              &lt;fct&gt; 
  1 あまご             魚介類
  2 あゆ               魚介類
  3 いちじく           果菜類
@@ -482,11 +486,11 @@ $.names
 32 らっきょう類       根菜類
 33 液状乳類           乳製品</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_wide[df_wide<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df2017[df2017<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27 × 2
    食材別       分類  
-   &lt;chr&gt;        &lt;chr&gt; 
+   &lt;chr&gt;        &lt;fct&gt; 
  1 あまご       魚介類
  2 あゆ         魚介類
  3 いわな       魚介類
@@ -499,14 +503,14 @@ $.names
 10 さんとうさい その他
 # ℹ 17 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide <span class="sc">|&gt;</span> <span class="fu">filter</span>(地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2017 <span class="sc">|&gt;</span> <span class="fu">filter</span>(地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"地産地消が進んでいる食材"</span>,</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「平成29年度 学校給食栄養報告」"</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
@@ -518,8 +522,316 @@ $.names
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_y_gt075.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_y_gt075_2017.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+</section>
+</section>
+<section id="令和元年度" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="令和元年度"><span class="header-section-number">3</span> 2019（令和元）年度</h2>
+<p><a href="https://www.e-stat.go.jp/stat-search/files?stat_infid=000031956068" target="_blank">地場産物・国産食材の使用割合（食材別）</a> からExcelファイルをダウンロードした後，そのファイル <code>r2kei_004(2).xls</code> を読み込む。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>df2019 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"../data/r2kei_004(2).xls"</span>, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df2019)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"食材別"</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>df2019 <span class="ot">&lt;-</span> df2019 <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(分類 <span class="ot">=</span> <span class="fu">factor</span>(<span class="fu">sapply</span>(食材別, categorize_food), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"根菜類"</span>, <span class="st">"葉菜類"</span>, <span class="st">"果菜類"</span>, <span class="st">"肉"</span>, <span class="st">"魚介類"</span>, <span class="st">"乳製品"</span>, <span class="st">"穀物"</span>, <span class="st">"その他"</span>)))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="散布図-1" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="散布図-1"><span class="header-section-number">3.1</span> 散布図</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2019, <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「令和元年度 学校給食栄養報告」"</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_2019.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="特徴のある食材を強調-1" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="特徴のある食材を強調-1"><span class="header-section-number">3.2</span> 特徴のある食材を強調</h3>
+<section id="輸入に依存している食材-1" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="輸入に依存している食材-1"><span class="header-section-number">3.2.1</span> 輸入に依存している食材</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df2019_x_lt025 <span class="ot">&lt;-</span> df2019[df2019<span class="sc">$</span>国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df2019_x_lt025[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df2019_x_lt025))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 41 × 2
+   食材別           分類  
+   &lt;chr&gt;            &lt;fct&gt; 
+ 1 アーモンド       その他
+ 2 あこうだい       その他
+ 3 あさり           魚介類
+ 4 アセロラ         その他
+ 5 アラスカめぬけ   その他
+ 6 いとよりだい     魚介類
+ 7 うなぎ           その他
+ 8 えび類           魚介類
+ 9 えんどう         葉菜類
+10 おきあみ         魚介類
+11 カシューナッツ   その他
+12 きす             その他
+13 くじら           魚介類
+14 くるみ           その他
+15 ごま             その他
+16 ザーサイ         その他
+17 ししゃも類       魚介類
+18 ショートニング   その他
+19 シルバー         その他
+20 すもも類         果菜類
+21 たかさご         魚介類
+22 なまず           その他
+23 にしん           魚介類
+24 パインアップル   果菜類
+25 はちみつ         その他
+26 バナナ           果菜類
+27 ひまわり         その他
+28 ひよこまめ       その他
+29 ホキ             魚介類
+30 ほっけ           魚介類
+31 まつ             その他
+32 マンゴー         果菜類
+33 むかでのり       その他
+34 むつ             その他
+35 メープルシロップ その他
+36 メルルーサ       その他
+37 めんよう         その他
+38 ライむぎ         その他
+39 レンズまめ       その他
+40 魚肉ソーセージ   その他
+41 揚げ豆           その他</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df2019[df2019<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 2
+   食材別         分類  
+   &lt;chr&gt;          &lt;fct&gt; 
+ 1 あこうだい     その他
+ 2 アセロラ       その他
+ 3 アラスカめぬけ その他
+ 4 うなぎ         その他
+ 5 カシューナッツ その他
+ 6 きす           その他
+ 7 くじら         魚介類
+ 8 くるみ         その他
+ 9 ザーサイ       その他
+10 シルバー       その他
+# ℹ 14 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2019 <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"輸入に依存している食材"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「令和元年度 学校給食栄養報告」"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_lt025_2019.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="国内の特定地域に依存している食材-1" class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="国内の特定地域に依存している食材-1"><span class="header-section-number">3.2.2</span> 国内の特定地域に依存している食材</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df2019_x_gt075_y_lt075 <span class="ot">&lt;-</span> df2019[df2019<span class="sc">$</span>国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> df2019<span class="sc">$</span>地場産物 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df2019_x_gt075_y_lt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df2019_x_gt075_y_lt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 43 × 2
+   食材別             分類  
+   &lt;chr&gt;              &lt;fct&gt; 
+ 1 あおのり           葉菜類
+ 2 あさつき           葉菜類
+ 3 あずき             その他
+ 4 あみ               その他
+ 5 いわのり           その他
+ 6 うずら卵           肉    
+ 7 うま               肉    
+ 8 うめ               その他
+ 9 おおむぎ           穀物  
+10 かつお類           魚介類
+11 かぼちゃ           その他
+12 きび               穀物  
+13 クリーム類         乳製品
+14 ごぼう             根菜類
+15 こんにゃく         その他
+16 こんぶ類           その他
+17 さくらんぼ         果菜類
+18 さけ・ます類       魚介類
+19 さんま             魚介類
+20 しそ               その他
+21 じゃがいも         根菜類
+22 しょうが類         その他
+23 しらうお           その他
+24 しろうり           その他
+25 セロリ             葉菜類
+26 ぜんまい           その他
+27 たけのこ           根菜類
+28 でん粉類           その他
+29 にんじん類         根菜類
+30 にんにく類         その他
+31 パセリ             葉菜類
+32 バター類           乳製品
+33 ビーツ             根菜類
+34 ピーマン類         葉菜類
+35 ひじき             その他
+36 ひらたけ類         葉菜類
+37 ふのり             その他
+38 ベーキングパウダー その他
+39 べにばないんげん   葉菜類
+40 もずく類           魚介類
+41 りんご             果菜類
+42 動物脂類           その他
+43 練乳類             乳製品</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df2019[df2019<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> df2019<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   食材別             分類  
+   &lt;chr&gt;              &lt;fct&gt; 
+ 1 あさつき           葉菜類
+ 2 あみ               その他
+ 3 いわのり           その他
+ 4 うま               肉    
+ 5 かぼちゃ           その他
+ 6 しらうお           その他
+ 7 しろうり           その他
+ 8 ビーツ             根菜類
+ 9 ベーキングパウダー その他
+10 べにばないんげん   葉菜類</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2019 <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> 地場産物<span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"国内の特定地域に依存している食材"</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「令和元年度 学校給食栄養報告」"</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_gt075_y_lt075_2019.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="地産地消が進んでいる食材-1" class="level4" data-number="3.2.3">
+<h4 data-number="3.2.3" class="anchored" data-anchor-id="地産地消が進んでいる食材-1"><span class="header-section-number">3.2.3</span> 地産地消が進んでいる食材</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df2019_y_gt075 <span class="ot">&lt;-</span> df2019[df2019<span class="sc">$</span>地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>, ]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df2019_y_gt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df2019_y_gt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 38 × 2
+   食材別         分類  
+   &lt;chr&gt;          &lt;fct&gt; 
+ 1 あしたば       葉菜類
+ 2 あゆ           魚介類
+ 3 いさき         その他
+ 4 いしだい       その他
+ 5 いのしし       肉    
+ 6 いぼだい       その他
+ 7 いわな         魚介類
+ 8 えごま         穀物  
+ 9 おおさかしろな その他
+10 からしな       葉菜類
+11 かわのり       その他
+12 きんめだい     その他
+13 ぐち           魚介類
+14 このしろ       魚介類
+15 さより         魚介類
+16 さんとうさい   その他
+17 ししとう       葉菜類
+18 しじみ         その他
+19 したびらめ     魚介類
+20 すずき         魚介類
+21 せり           葉菜類
+22 タアサイ       その他
+23 たいさい類     葉菜類
+24 つるむらさき   その他
+25 どじょう       魚介類
+26 とんぶり       魚介類
+27 なばな類       その他
+28 にぎす         魚介類
+29 はやとうり     葉菜類
+30 ひのな         その他
+31 ふき類         葉菜類
+32 へちま         根菜類
+33 ほや           その他
+34 ほんもろこ     その他
+35 ヤーコン       根菜類
+36 わさび         その他
+37 液状乳類       乳製品
+38 雑穀           穀物  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df2019[df2019<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 34 × 2
+   食材別         分類  
+   &lt;chr&gt;          &lt;fct&gt; 
+ 1 あしたば       葉菜類
+ 2 あゆ           魚介類
+ 3 いさき         その他
+ 4 いしだい       その他
+ 5 いのしし       肉    
+ 6 いぼだい       その他
+ 7 いわな         魚介類
+ 8 えごま         穀物  
+ 9 おおさかしろな その他
+10 からしな       葉菜類
+# ℹ 24 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2019 <span class="sc">|&gt;</span> <span class="fu">filter</span>(地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"地産地消が進んでいる食材"</span>,</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「令和元年度 学校給食栄養報告」"</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraginoSans-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_y_gt075_2019.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 </section>
 

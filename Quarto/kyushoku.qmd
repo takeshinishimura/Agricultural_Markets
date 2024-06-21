@@ -21,16 +21,16 @@ lang: ja
 ::: {.callout-note collapse="true" icon="true"}
 ## 学校給食栄養報告
 
-[https://www.e-stat.go.jp/stat-search/files?page=1&toukei=00400803&tstat=000001016938](https://www.e-stat.go.jp/stat-search/files?page=1&toukei=00400803&tstat=000001016938){target="_blank"}
+[https://www.e-stat.go.jp/statistics/00400803](https://www.e-stat.go.jp/statistics/00400803){target="_blank"}
 :::
 
 ::: {.callout-note collapse="true" icon="true"}
 ## 
 
-[学校給食における地場産物・国産食材の使用割合（食材別）](https://www.e-stat.go.jp/stat-search/database?statdisp_id=0003328454){target="_blank"} からデータを入手する。
 
-ただし，`e-stat`のAPIは，一度のリクエストで取得できるデータの行数に制限がある場合がある。
-この制限を超えるデータを取得するために，ページネーションを利用して複数回のリクエストを行い，それぞれの結果を結合する。
+## 2017（平成29）年度
+
+[地場産物・国産食材の使用割合（食材別）](https://www.e-stat.go.jp/stat-search/files?stat_infid=000031736237){target="_blank"} からデータを入手する。
 
 ```{r}
 #| message: false
@@ -54,7 +54,7 @@ statsDataId <- "0003328454"
 ```
 
 
-## データの取得
+### データの取得
 
 ```{r}
 #| message: false
@@ -69,11 +69,11 @@ write.table(df, file = file.path(outdir, "kyushoku.csv"), sep = ",", row.names =
 ```
 
 
-## データの変換
+### データの変換
 
 ```{r}
 #| message: false
-df_wide <- df |>
+df2017 <- df |>
   dplyr::filter(`時間軸（年度）` == "2017年度") |>
   select(-cat02_code) |>
   tidyr::pivot_wider(names_from = `地場産物・国産食材`, values_from = value)
@@ -85,7 +85,7 @@ categorize_food <- function(food) {
     return("葉菜類")
   } else if (grepl("トマト類|きゅうり|すいか|すもも類|さくらんぼ|パインアップル|バナナ|びわ|ぶどう|ブルーベリー|マンゴー|メロン|もも類|りんご|なし類|いちご|いちじく|オリーブ|キウイフルーツ|かき", food)) {
     return("果菜類")
-  } else if (grepl("うし|うずら卵|うま|にわとり|ぶた|かも", food)) {
+  } else if (grepl("うし|うずら卵|うま|にわとり|ぶた|かも|いのしし", food)) {
     return("肉")
   } else if (grepl("あさり|あじ類|あまご|あまのり|あゆ|アラスカメヌケ|いかなご|いか類|いとよりだい|いわし類|いわな|えび類|えそ（魚類）|おきあみ|かさご|かじき類|かつお類|かに類|かます|かれい類|かわはぎ|きびなご|くじら|ぐち|くらげ|このしろ|さけ・ます類|さば類|さめ類|さより|さわら|さんま|しいら|ししゃも類|しゃこ|しらす|すずき|せり|たい類|たこ類|たちうお|たら類|とびうお|どじょう|にぎす|にしん|はたはた|はまち|ひらまさ|ふぐ|ぶり|ほたてがい|ほっけ|ほんもろこ（魚類）|まぐろ類|みずかけな|メルルーサ（魚類）|もずく類|やまめ|わかさぎ|わかめ|ホキ|したびらめ", food)) {
     return("魚介類")
@@ -100,103 +100,216 @@ categorize_food <- function(food) {
   }
 }
 
-df_wide <- df_wide |>
-  mutate(分類 = sapply(食材別, categorize_food))
+df2017 <- df2017 |>
+  mutate(分類 = factor(sapply(食材別, categorize_food), levels = c("根菜類", "葉菜類", "果菜類", "肉", "魚介類", "乳製品", "穀物", "その他")))
 ```
 
 
-## 散布図
+### 散布図
 
 ```{r}
 #| message: false
-g <- ggplot(df_wide, aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+g <- ggplot(df2017, aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
   geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
-  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01), check_overlap = TRUE) +
+  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01)) +
   labs(
     title = "学校給食における地場産物・国産食材の使用割合（食材別）",
     color = "",
-    caption = "出典：文部科学省「学校給食栄養報告」"
+    caption = "出典：文部科学省「平成29年度 学校給食栄養報告」"
   ) +
   theme_bw() +
   scale_color_d3()
 g + theme(text = element_text(family = "HiraKakuProN-W3"))
 
-ggsave(filename = file.path(figdir, "kyushoku.pdf"), plot = g, width = 8, height = 8)
+ggsave(filename = file.path(figdir, "kyushoku_2017.pdf"), plot = g, width = 8, height = 8)
 ```
 
 
-## 特徴のある食材を強調
+### 特徴のある食材を強調
 
-### 輸入に依存している食材
+#### 輸入に依存している食材
 
 ```{r}
 #| message: false
-df_wide_x_lt025 <- df_wide[df_wide$国産食材 < 0.25, ]
-print(df_wide_x_lt025[, c("食材別", "分類")], n = nrow(df_wide_x_lt025))
+df2017_x_lt025 <- df2017[df2017$国産食材 < 0.25, ]
+print(df2017_x_lt025[, c("食材別", "分類")], n = nrow(df2017_x_lt025))
 
-df_wide[df_wide$国産食材 == 0, c("食材別", "分類")]
+df2017[df2017$国産食材 == 0, c("食材別", "分類")]
 
-g <- ggplot(df_wide |> filter(国産食材 < 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+g <- ggplot(df2017 |> filter(国産食材 < 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
   geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
   geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01), check_overlap = TRUE) +
   labs(
     title = "学校給食における地場産物・国産食材の使用割合（食材別）",
     subtitle = "輸入に依存している食材",
-    caption = "出典：文部科学省「学校給食栄養報告」"
+    caption = "出典：文部科学省「平成29年度 学校給食栄養報告」"
   ) +
   theme_bw() +
   scale_color_d3()
 g + theme(text = element_text(family = "HiraKakuProN-W3"))
 
-ggsave(filename = file.path(figdir, "kyushoku_x_lt025.pdf"), plot = g, width = 8, height = 8)
+ggsave(filename = file.path(figdir, "kyushoku_x_lt025_2017.pdf"), plot = g, width = 8, height = 8)
 ```
 
-### 国内の特定地域に依存している食材
+#### 国内の特定地域に依存している食材
 
 ```{r}
 #| message: false
-df_wide_x_gt075_y_lt075 <- df_wide[df_wide$国産食材 > 0.75 & df_wide$地場産物 < 0.25, ]
-print(df_wide_x_gt075_y_lt075[, c("食材別", "分類")], n = nrow(df_wide_x_gt075_y_lt075))
+df2017_x_gt075_y_lt075 <- df2017[df2017$国産食材 > 0.75 & df2017$地場産物 < 0.25, ]
+print(df2017_x_gt075_y_lt075[, c("食材別", "分類")], n = nrow(df2017_x_gt075_y_lt075))
 
-df_wide[df_wide$国産食材 == 1 & df_wide$地場産物 == 0, c("食材別", "分類")]
+df2017[df2017$国産食材 == 1 & df2017$地場産物 == 0, c("食材別", "分類")]
 
-g <- ggplot(df_wide |> filter(国産食材 > 0.75 & 地場産物< 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+g <- ggplot(df2017 |> filter(国産食材 > 0.75 & 地場産物< 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
   geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
   geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01), check_overlap = TRUE) +
   labs(
     title = "学校給食における地場産物・国産食材の使用割合（食材別）",
     subtitle = "国内の特定地域に依存している食材",
     color = "",
-    caption = "出典：文部科学省「学校給食栄養報告」"
+    caption = "出典：文部科学省「平成29年度 学校給食栄養報告」"
   ) +
   theme_bw() +
   scale_color_d3()
 g + theme(text = element_text(family = "HiraKakuProN-W3"))
 
-ggsave(filename = file.path(figdir, "kyushoku_x_gt075_y_lt075.pdf"), plot = g, width = 8, height = 8)
+ggsave(filename = file.path(figdir, "kyushoku_x_gt075_y_lt075_2017.pdf"), plot = g, width = 8, height = 8)
 ```
 
-### 地産地消が進んでいる食材
+#### 地産地消が進んでいる食材
 
 ```{r}
 #| message: false
-df_wide_y_gt075 <- df_wide[df_wide$地場産物 > 0.75, ]
-print(df_wide_y_gt075[, c("食材別", "分類")], n = nrow(df_wide_y_gt075))
+df2017_y_gt075 <- df2017[df2017$地場産物 > 0.75, ]
+print(df2017_y_gt075[, c("食材別", "分類")], n = nrow(df2017_y_gt075))
 
-df_wide[df_wide$地場産物 == 1, c("食材別", "分類")]
+df2017[df2017$地場産物 == 1, c("食材別", "分類")]
 
-g <- ggplot(df_wide |> filter(地場産物 > 0.75), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+g <- ggplot(df2017 |> filter(地場産物 > 0.75), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
   geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
   geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01), check_overlap = TRUE) +
   labs(
     title = "学校給食における地場産物・国産食材の使用割合（食材別）",
     subtitle = "地産地消が進んでいる食材",
     color = "",
-    caption = "出典：文部科学省「学校給食栄養報告」"
+    caption = "出典：文部科学省「平成29年度 学校給食栄養報告」"
   ) +
   theme_bw() +
   scale_color_d3()
 g + theme(text = element_text(family = "HiraginoSans-W3"))
 
-ggsave(filename = file.path(figdir, "kyushoku_y_gt075.pdf"), plot = g, width = 8, height = 8)
+ggsave(filename = file.path(figdir, "kyushoku_y_gt075_2017.pdf"), plot = g, width = 8, height = 8)
+```
+
+
+## 2019（令和元）年度
+
+[地場産物・国産食材の使用割合（食材別）](https://www.e-stat.go.jp/stat-search/files?stat_infid=000031956068){target="_blank"} からExcelファイルをダウンロードした後，そのファイル `r2kei_004(2).xls` を読み込む。
+
+```{r}
+#| message: false
+library(readxl)
+
+df2019 <- readxl::read_excel("../data/r2kei_004(2).xls", sheet = 1, skip = 2)
+names(df2019)[1] <- "食材別"
+
+df2019 <- df2019 |>
+  mutate(分類 = factor(sapply(食材別, categorize_food), levels = c("根菜類", "葉菜類", "果菜類", "肉", "魚介類", "乳製品", "穀物", "その他")))
+```
+
+
+### 散布図
+
+```{r}
+#| message: false
+g <- ggplot(df2019, aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01)) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    color = "",
+    caption = "出典：文部科学省「令和元年度 学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraKakuProN-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku_2019.pdf"), plot = g, width = 8, height = 8)
+```
+
+
+### 特徴のある食材を強調
+
+#### 輸入に依存している食材
+
+```{r}
+#| message: false
+df2019_x_lt025 <- df2019[df2019$国産食材 < 0.25, ]
+print(df2019_x_lt025[, c("食材別", "分類")], n = nrow(df2019_x_lt025))
+
+df2019[df2019$国産食材 == 0, c("食材別", "分類")]
+
+g <- ggplot(df2019 |> filter(国産食材 < 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01), check_overlap = TRUE) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    subtitle = "輸入に依存している食材",
+    caption = "出典：文部科学省「令和元年度 学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraKakuProN-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku_x_lt025_2019.pdf"), plot = g, width = 8, height = 8)
+```
+
+#### 国内の特定地域に依存している食材
+
+```{r}
+#| message: false
+df2019_x_gt075_y_lt075 <- df2019[df2019$国産食材 > 0.75 & df2019$地場産物 < 0.25, ]
+print(df2019_x_gt075_y_lt075[, c("食材別", "分類")], n = nrow(df2019_x_gt075_y_lt075))
+
+df2019[df2019$国産食材 == 1 & df2019$地場産物 == 0, c("食材別", "分類")]
+
+g <- ggplot(df2019 |> filter(国産食材 > 0.75 & 地場産物< 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01), check_overlap = TRUE) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    subtitle = "国内の特定地域に依存している食材",
+    color = "",
+    caption = "出典：文部科学省「令和元年度 学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraKakuProN-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku_x_gt075_y_lt075_2019.pdf"), plot = g, width = 8, height = 8)
+```
+
+#### 地産地消が進んでいる食材
+
+```{r}
+#| message: false
+df2019_y_gt075 <- df2019[df2019$地場産物 > 0.75, ]
+print(df2019_y_gt075[, c("食材別", "分類")], n = nrow(df2019_y_gt075))
+
+df2019[df2019$地場産物 == 1, c("食材別", "分類")]
+
+g <- ggplot(df2019 |> filter(地場産物 > 0.75), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE, position = position_jitter(width = 0.01, height = 0.01), check_overlap = TRUE) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    subtitle = "地産地消が進んでいる食材",
+    color = "",
+    caption = "出典：文部科学省「令和元年度 学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraginoSans-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku_y_gt075_2019.pdf"), plot = g, width = 8, height = 8)
 ```
