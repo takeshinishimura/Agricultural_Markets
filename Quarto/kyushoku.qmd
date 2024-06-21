@@ -1,0 +1,202 @@
+---
+project:
+  type: website
+  output-dir: docs
+title: "学校給食における地産地消"
+format:
+  html:
+    toc: true
+    toc-title: 目次
+    toc_float: true
+    toc-depth: 3
+    number-sections: true
+    theme: lumen
+lang: ja
+---
+
+学校給食の地産地消の状況を確認する。
+
+## 学校給食栄養報告
+
+::: {.callout-note collapse="true" icon="true"}
+## 学校給食栄養報告
+
+[https://www.e-stat.go.jp/stat-search/files?page=1&toukei=00400803&tstat=000001016938](https://www.e-stat.go.jp/stat-search/files?page=1&toukei=00400803&tstat=000001016938){target="_blank"}
+:::
+
+::: {.callout-note collapse="true" icon="true"}
+## 
+
+[学校給食における地場産物・国産食材の使用割合（食材別）](https://www.e-stat.go.jp/stat-search/database?statdisp_id=0003328454){target="_blank"} からデータを入手する。
+
+ただし，`e-stat`のAPIは，一度のリクエストで取得できるデータの行数に制限がある場合がある。
+この制限を超えるデータを取得するために，ページネーションを利用して複数回のリクエストを行い，それぞれの結果を結合する。
+
+```{r}
+#| message: false
+library(estatapi)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(gghighlight)
+library(ggsci)
+
+outdir <- "../data"
+dir.create(outdir, showWarnings = FALSE)
+figdir <- "../fig"
+dir.create(figdir, showWarnings = FALSE)
+
+appId <- keyring::key_get("e-stat")
+statsDataId <- "0003328454"
+
+# メタ情報取得
+(meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId))
+```
+
+
+## データの取得
+
+```{r}
+#| message: false
+# 統計データ取得
+df <- estat_getStatsData(
+  appId = appId,
+  statsDataId = statsDataId
+)
+
+# データ保存
+write.table(df, file = file.path(outdir, "kyushoku.csv"), sep = ",", row.names = FALSE)
+```
+
+
+## データの変換
+
+```{r}
+#| message: false
+df_wide <- df |>
+  dplyr::filter(`時間軸（年度）` == "2017年度") |>
+  select(-cat02_code) |>
+  tidyr::pivot_wider(names_from = `地場産物・国産食材`, values_from = value)
+
+categorize_food <- function(food) {
+  if (grepl("ごぼう|さつまいも類|さといも類|じゃがいも|たけのこ|たまねぎ類|にんじん類|れんこん|ビーツ|へちま|ヤーコン|れんこん|らっきょう類", food)) {
+    return("根菜類")
+  } else if (grepl("あおさ|あおのり|あさつき|あしたば|えだまめ|えんどう|オクラ|カリフラワー|キャベツ類|こまつな|ししとう|しゅんぎく|セロリ|とうがん|なす類|パセリ|ブロッコリー|ほうれんそう|みずな|みつば類|レタス類|せり|チンゲンサイ|バジル|ピーマン類|ひらたけ類|ふき類|べにばないんげん|みぶな|ミズナ|メキャベツ|モロヘイヤ|パクチョイ|からしな|たいさい類|はやとうり", food)) {
+    return("葉菜類")
+  } else if (grepl("トマト類|きゅうり|すいか|すもも類|さくらんぼ|パインアップル|バナナ|びわ|ぶどう|ブルーベリー|マンゴー|メロン|もも類|りんご|なし類|いちご|いちじく|オリーブ|キウイフルーツ|かき", food)) {
+    return("果菜類")
+  } else if (grepl("うし|うずら卵|うま|にわとり|ぶた|かも", food)) {
+    return("肉")
+  } else if (grepl("あさり|あじ類|あまご|あまのり|あゆ|アラスカメヌケ|いかなご|いか類|いとよりだい|いわし類|いわな|えび類|えそ（魚類）|おきあみ|かさご|かじき類|かつお類|かに類|かます|かれい類|かわはぎ|きびなご|くじら|ぐち|くらげ|このしろ|さけ・ます類|さば類|さめ類|さより|さわら|さんま|しいら|ししゃも類|しゃこ|しらす|すずき|せり|たい類|たこ類|たちうお|たら類|とびうお|どじょう|にぎす|にしん|はたはた|はまち|ひらまさ|ふぐ|ぶり|ほたてがい|ほっけ|ほんもろこ（魚類）|まぐろ類|みずかけな|メルルーサ（魚類）|もずく類|やまめ|わかさぎ|わかめ|ホキ|したびらめ", food)) {
+    return("魚介類")
+  } else if (grepl("チーズ類|クリーム類|バター類|ヨーグルト|牛乳|乳製品|生クリーム|粉ミルク|液状乳類|発酵乳・乳酸菌飲料|粉乳類|練乳類", food)) {
+    return("乳製品")
+  } else if (grepl("おおむぎ|おおむぎ七分つき押麦|えごま|きび|こむぎ|こめ|そば|とうもろこし|雑穀", food)) {
+    return("穀物")
+  } else if (grepl("こんにゃく|さつま揚げ|でん粉製品|でん粉糖類|でん粉類|なると|つみれ|てんぐさ|とさかのり|焼き竹輪|焼き抜きかまぼこ|蒸しかまぼこ|とんぶり", food)) {
+    return("その他")
+  } else {
+    return("その他")
+  }
+}
+
+df_wide <- df_wide |>
+  mutate(分類 = sapply(食材別, categorize_food))
+```
+
+
+## 散布図
+
+```{r}
+#| message: false
+g <- ggplot(df_wide, aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    color = "",
+    caption = "出典：文部科学省「学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraKakuProN-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku.pdf"), plot = g, width = 8, height = 8)
+```
+
+
+## 特徴のある食材を強調
+
+### 輸入に依存している食材
+
+```{r}
+#| message: false
+df_wide_x_lt025 <- df_wide[df_wide$国産食材 < 0.25, ]
+print(df_wide_x_lt025[, c("食材別", "分類")], n = nrow(df_wide_x_lt025))
+
+df_wide[df_wide$国産食材 == 0, c("食材別", "分類")]
+
+g <- ggplot(df_wide |> filter(国産食材 < 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    subtitle = "輸入に依存している食材",
+    caption = "出典：文部科学省「学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraKakuProN-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku_x_lt025.pdf"), plot = g, width = 8, height = 8)
+```
+
+### 国内の特定地域に依存している食材
+
+```{r}
+#| message: false
+df_wide_x_gt075_y_lt075 <- df_wide[df_wide$国産食材 > 0.75 & df_wide$地場産物 < 0.25, ]
+print(df_wide_x_gt075_y_lt075[, c("食材別", "分類")], n = nrow(df_wide_x_gt075_y_lt075))
+
+df_wide[df_wide$国産食材 == 1 & df_wide$地場産物 == 0, c("食材別", "分類")]
+
+g <- ggplot(df_wide |> filter(国産食材 > 0.75 & 地場産物< 0.25), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    subtitle = "国内の特定地域に依存している食材",
+    color = "",
+    caption = "出典：文部科学省「学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraKakuProN-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku_x_gt075_y_lt075.pdf"), plot = g, width = 8, height = 8)
+```
+
+### 地産地消が進んでいる食材
+
+```{r}
+#| message: false
+df_wide_y_gt075 <- df_wide[df_wide$地場産物 > 0.75, ]
+print(df_wide_y_gt075[, c("食材別", "分類")], n = nrow(df_wide_y_gt075))
+
+df_wide[df_wide$地場産物 == 1, c("食材別", "分類")]
+
+g <- ggplot(df_wide |> filter(地場産物 > 0.75), aes(x = 国産食材, y = 地場産物, label = 食材別, group = 分類, colour = 分類)) +
+  geom_point(position = position_jitter(width = 0.01, height = 0.01)) +
+  geom_text(vjust = -0.5, hjust = 0.5, show.legend = FALSE) +
+  labs(
+    title = "学校給食における地場産物・国産食材の使用割合（食材別）",
+    subtitle = "地産地消が進んでいる食材",
+    color = "",
+    caption = "出典：文部科学省「学校給食栄養報告」"
+  ) +
+  theme_bw() +
+  scale_color_d3()
+g + theme(text = element_text(family = "HiraginoSans-W3"))
+
+ggsave(filename = file.path(figdir, "kyushoku_y_gt075.pdf"), plot = g, width = 8, height = 8)
+```

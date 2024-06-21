@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>学校給食における地産地消</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="kyushoku_files/libs/clipboard/clipboard.min.js"></script>
+<script src="kyushoku_files/libs/quarto-html/quarto.js"></script>
+<script src="kyushoku_files/libs/quarto-html/popper.min.js"></script>
+<script src="kyushoku_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="kyushoku_files/libs/quarto-html/anchor.min.js"></script>
+<link href="kyushoku_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="kyushoku_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="kyushoku_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="kyushoku_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="kyushoku_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#学校給食栄養報告" id="toc-学校給食栄養報告" class="nav-link active" data-scroll-target="#学校給食栄養報告"><span class="header-section-number">1</span> 学校給食栄養報告</a></li>
+  <li><a href="#データの取得" id="toc-データの取得" class="nav-link" data-scroll-target="#データの取得"><span class="header-section-number">2</span> データの取得</a></li>
+  <li><a href="#データの変換" id="toc-データの変換" class="nav-link" data-scroll-target="#データの変換"><span class="header-section-number">3</span> データの変換</a></li>
+  <li><a href="#散布図" id="toc-散布図" class="nav-link" data-scroll-target="#散布図"><span class="header-section-number">4</span> 散布図</a></li>
+  <li><a href="#特徴のある食材を強調" id="toc-特徴のある食材を強調" class="nav-link" data-scroll-target="#特徴のある食材を強調"><span class="header-section-number">5</span> 特徴のある食材を強調</a>
+  <ul class="collapse">
+  <li><a href="#輸入に依存している食材" id="toc-輸入に依存している食材" class="nav-link" data-scroll-target="#輸入に依存している食材"><span class="header-section-number">5.1</span> 輸入に依存している食材</a></li>
+  <li><a href="#国内の特定地域に依存している食材" id="toc-国内の特定地域に依存している食材" class="nav-link" data-scroll-target="#国内の特定地域に依存している食材"><span class="header-section-number">5.2</span> 国内の特定地域に依存している食材</a></li>
+  <li><a href="#地産地消が進んでいる食材" id="toc-地産地消が進んでいる食材" class="nav-link" data-scroll-target="#地産地消が進んでいる食材"><span class="header-section-number">5.3</span> 地産地消が進んでいる食材</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">学校給食における地産地消</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>学校給食の地産地消の状況を確認する。</p>
+<section id="学校給食栄養報告" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="学校給食栄養報告"><span class="header-section-number">1</span> 学校給食栄養報告</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+学校給食栄養報告
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><a href="https://www.e-stat.go.jp/stat-search/files?page=1&amp;toukei=00400803&amp;tstat=000001016938" target="_blank">https://www.e-stat.go.jp/stat-search/files?page=1&amp;toukei=00400803&amp;tstat=000001016938</a></p>
+</div>
+</div>
+</div>
+<p>::: {.callout-note collapse=“true” icon=“true”} ##</p>
+<p><a href="https://www.e-stat.go.jp/stat-search/database?statdisp_id=0003328454" target="_blank">学校給食における地場産物・国産食材の使用割合（食材別）</a> からデータを入手する。</p>
+<p>ただし，<code>e-stat</code>のAPIは，一度のリクエストで取得できるデータの行数に制限がある場合がある。 この制限を超えるデータを取得するために，ページネーションを利用して複数回のリクエストを行い，それぞれの結果を結合する。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estatapi)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggsci)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="st">"../data"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(outdir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>figdir <span class="ot">&lt;-</span> <span class="st">"../fig"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(figdir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>appId <span class="ot">&lt;-</span> keyring<span class="sc">::</span><span class="fu">key_get</span>(<span class="st">"e-stat"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>statsDataId <span class="ot">&lt;-</span> <span class="st">"0003328454"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># メタ情報取得</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>(meta_info <span class="ot">&lt;-</span> <span class="fu">estat_getMetaInfo</span>(<span class="at">appId =</span> appId, <span class="at">statsDataId =</span> statsDataId))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$tab
+# A tibble: 1 × 4
+  `@code` `@name`  `@level` `@unit`
+  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  
+1 100     使用割合 ""       比率   
+
+$cat01
+# A tibble: 284 × 4
+   `@code` `@name`          `@level` `@parentCode`
+   &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;        
+ 1 100     アーモンド       2        90           
+ 2 110     アイスクリーム類 2        90           
+ 3 120     あおさ           2        90           
+ 4 130     あおのり         2        90           
+ 5 140     あこうだい       2        90           
+ 6 150     あさつき         2        90           
+ 7 160     あさり           2        90           
+ 8 170     あしたば         2        90           
+ 9 180     あじ類           2        90           
+10 190     あずき           2        90           
+# ℹ 274 more rows
+
+$cat02
+# A tibble: 2 × 3
+  `@code` `@name`  `@level`
+  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;   
+1 100     地場産物 1       
+2 110     国産食材 1       
+
+$time
+# A tibble: 2 × 3
+  `@code`    `@name`  `@level`
+  &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   
+1 2017100000 2017年度 1       
+2 2016100000 2016年度 1       
+
+$.names
+# A tibble: 4 × 2
+  id    name              
+  &lt;chr&gt; &lt;chr&gt;             
+1 tab   表章項目          
+2 cat01 食材別            
+3 cat02 地場産物・国産食材
+4 time  時間軸（年度）    </code></pre>
+</div>
+</div>
+</section>
+<section id="データの取得" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="データの取得"><span class="header-section-number">2</span> データの取得</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 統計データ取得</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">estat_getStatsData</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">appId =</span> appId,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">statsDataId =</span> statsDataId</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># データ保存</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(df, <span class="at">file =</span> <span class="fu">file.path</span>(outdir, <span class="st">"kyushoku.csv"</span>), <span class="at">sep =</span> <span class="st">","</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="データの変換" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="データの変換"><span class="header-section-number">3</span> データの変換</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="st">`</span><span class="at">時間軸（年度）</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"2017年度"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>cat02_code) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">`</span><span class="at">地場産物・国産食材</span><span class="st">`</span>, <span class="at">values_from =</span> value)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>categorize_food <span class="ot">&lt;-</span> <span class="cf">function</span>(food) {</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"ごぼう|さつまいも類|さといも類|じゃがいも|たけのこ|たまねぎ類|にんじん類|れんこん|ビーツ|へちま|ヤーコン|れんこん|らっきょう類"</span>, food)) {</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"根菜類"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"あおさ|あおのり|あさつき|あしたば|えだまめ|えんどう|オクラ|カリフラワー|キャベツ類|こまつな|ししとう|しゅんぎく|セロリ|とうがん|なす類|パセリ|ブロッコリー|ほうれんそう|みずな|みつば類|レタス類|せり|チンゲンサイ|バジル|ピーマン類|ひらたけ類|ふき類|べにばないんげん|みぶな|ミズナ|メキャベツ|モロヘイヤ|パクチョイ|からしな|たいさい類|はやとうり"</span>, food)) {</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"葉菜類"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"トマト類|きゅうり|すいか|すもも類|さくらんぼ|パインアップル|バナナ|びわ|ぶどう|ブルーベリー|マンゴー|メロン|もも類|りんご|なし類|いちご|いちじく|オリーブ|キウイフルーツ|かき"</span>, food)) {</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"果菜類"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"うし|うずら卵|うま|にわとり|ぶた|かも"</span>, food)) {</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"肉"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"あさり|あじ類|あまご|あまのり|あゆ|アラスカメヌケ|いかなご|いか類|いとよりだい|いわし類|いわな|えび類|えそ（魚類）|おきあみ|かさご|かじき類|かつお類|かに類|かます|かれい類|かわはぎ|きびなご|くじら|ぐち|くらげ|このしろ|さけ・ます類|さば類|さめ類|さより|さわら|さんま|しいら|ししゃも類|しゃこ|しらす|すずき|せり|たい類|たこ類|たちうお|たら類|とびうお|どじょう|にぎす|にしん|はたはた|はまち|ひらまさ|ふぐ|ぶり|ほたてがい|ほっけ|ほんもろこ（魚類）|まぐろ類|みずかけな|メルルーサ（魚類）|もずく類|やまめ|わかさぎ|わかめ|ホキ|したびらめ"</span>, food)) {</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"魚介類"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"チーズ類|クリーム類|バター類|ヨーグルト|牛乳|乳製品|生クリーム|粉ミルク|液状乳類|発酵乳・乳酸菌飲料|粉乳類|練乳類"</span>, food)) {</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"乳製品"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"おおむぎ|おおむぎ七分つき押麦|えごま|きび|こむぎ|こめ|そば|とうもろこし|雑穀"</span>, food)) {</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"穀物"</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">grepl</span>(<span class="st">"こんにゃく|さつま揚げ|でん粉製品|でん粉糖類|でん粉類|なると|つみれ|てんぐさ|とさかのり|焼き竹輪|焼き抜きかまぼこ|蒸しかまぼこ|とんぶり"</span>, food)) {</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"その他"</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">"その他"</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> df_wide <span class="sc">|&gt;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(分類 <span class="ot">=</span> <span class="fu">sapply</span>(食材別, categorize_food))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="散布図" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="散布図"><span class="header-section-number">4</span> 散布図</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide, <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="特徴のある食材を強調" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="特徴のある食材を強調"><span class="header-section-number">5</span> 特徴のある食材を強調</h2>
+<section id="輸入に依存している食材" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="輸入に依存している食材"><span class="header-section-number">5.1</span> 輸入に依存している食材</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_wide_x_lt025 <span class="ot">&lt;-</span> df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_wide_x_lt025[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df_wide_x_lt025))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 19 × 2
+   食材別             分類  
+   &lt;chr&gt;              &lt;chr&gt; 
+ 1 アラスカメヌケ     魚介類
+ 2 いとよりだい       魚介類
+ 3 えび類             魚介類
+ 4 えんどう           葉菜類
+ 5 キウイフルーツ     果菜類
+ 6 くらげ             魚介類
+ 7 ココナッツ         その他
+ 8 ごま               その他
+ 9 ししゃも類         魚介類
+10 すもも類           果菜類
+11 その他             その他
+12 とうもろこし       穀物  
+13 パインアップル     果菜類
+14 バナナ             果菜類
+15 ひよこまめ         その他
+16 ホキ               魚介類
+17 メルルーサ（魚類） 魚介類
+18 レンズまめ         その他
+19 わかさぎ           魚介類</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: 食材別 &lt;chr&gt;, 分類 &lt;chr&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"輸入に依存している食材"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_lt025.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="国内の特定地域に依存している食材" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="国内の特定地域に依存している食材"><span class="header-section-number">5.2</span> 国内の特定地域に依存している食材</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_wide_x_gt075_y_lt075 <span class="ot">&lt;-</span> df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> df_wide<span class="sc">$</span>地場産物 <span class="sc">&lt;</span> <span class="fl">0.25</span>, ]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_wide_x_gt075_y_lt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df_wide_x_gt075_y_lt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 54 × 2
+   食材別               分類  
+   &lt;chr&gt;                &lt;chr&gt; 
+ 1 あおさ               葉菜類
+ 2 あおのり             葉菜類
+ 3 あさつき             葉菜類
+ 4 あずき               その他
+ 5 いかなご             魚介類
+ 6 いわのり             その他
+ 7 うずら卵             肉    
+ 8 うま                 肉    
+ 9 うめ                 その他
+10 えごのり             その他
+11 おおむぎ七分つき押麦 穀物  
+12 おかひじき           その他
+13 オクラ               葉菜類
+14 オリーブ             果菜類
+15 かき（貝類）         果菜類
+16 かつお類             魚介類
+17 かも                 肉    
+18 きび                 穀物  
+19 ぎんなん             その他
+20 クリーム類           乳製品
+21 ごぼう               根菜類
+22 こんにゃく           その他
+23 こんぶ類             その他
+24 さけ・ます類         魚介類
+25 さめ類               魚介類
+26 さんま               魚介類
+27 ししとう             葉菜類
+28 しそ                 その他
+29 じゃがいも           根菜類
+30 じゅうろくささげ     その他
+31 しょうが類           その他
+32 セロリ               葉菜類
+33 ぜんまい             その他
+34 そらまめ             その他
+35 でん粉類             その他
+36 ながさきはくさい     その他
+37 なばな類             その他
+38 にんにく類           その他
+39 はす                 その他
+40 パセリ               葉菜類
+41 バター類             乳製品
+42 ピーマン類           葉菜類
+43 ひのな               その他
+44 ひらたけ類           葉菜類
+45 ふのり               その他
+46 メロン               果菜類
+47 もずく類             魚介類
+48 よもぎ               その他
+49 りんご               果菜類
+50 レタス類             葉菜類
+51 わけぎ               その他
+52 強化米               その他
+53 動物脂類             その他
+54 練乳類               乳製品</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_wide[df_wide<span class="sc">$</span>国産食材 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> df_wide<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">0</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 2
+   食材別           分類  
+   &lt;chr&gt;            &lt;chr&gt; 
+ 1 いかなご         魚介類
+ 2 いわのり         その他
+ 3 うま             肉    
+ 4 えごのり         その他
+ 5 おかひじき       その他
+ 6 オリーブ         果菜類
+ 7 かき（貝類）     果菜類
+ 8 かも             肉    
+ 9 ぎんなん         その他
+10 さめ類           魚介類
+11 ししとう         葉菜類
+12 じゅうろくささげ その他
+13 ながさきはくさい その他
+14 なばな類         その他
+15 はす             その他
+16 ひのな           その他
+17 よもぎ           その他
+18 わけぎ           その他</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide <span class="sc">|&gt;</span> <span class="fu">filter</span>(国産食材 <span class="sc">&gt;</span> <span class="fl">0.75</span> <span class="sc">&amp;</span> 地場産物<span class="sc">&lt;</span> <span class="fl">0.25</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"国内の特定地域に依存している食材"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraKakuProN-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_x_gt075_y_lt075.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="地産地消が進んでいる食材" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="地産地消が進んでいる食材"><span class="header-section-number">5.3</span> 地産地消が進んでいる食材</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_wide_y_gt075 <span class="ot">&lt;-</span> df_wide[df_wide<span class="sc">$</span>地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>, ]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_wide_y_gt075[, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)], <span class="at">n =</span> <span class="fu">nrow</span>(df_wide_y_gt075))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 33 × 2
+   食材別             分類  
+   &lt;chr&gt;              &lt;chr&gt; 
+ 1 あまご             魚介類
+ 2 あゆ               魚介類
+ 3 いちじく           果菜類
+ 4 いわな             魚介類
+ 5 えごま             穀物  
+ 6 かます             魚介類
+ 7 からしな           葉菜類
+ 8 かわはぎ           魚介類
+ 9 ぐち               魚介類
+10 このしろ           魚介類
+11 こめ               穀物  
+12 さより             魚介類
+13 さんとうさい       その他
+14 しいら             魚介類
+15 したびらめ         魚介類
+16 しゃこ             魚介類
+17 せり               葉菜類
+18 たいさい類         葉菜類
+19 どじょう           魚介類
+20 とんぶり           魚介類
+21 にぎす             魚介類
+22 パクチョイ         葉菜類
+23 はやとうり         葉菜類
+24 ビーツ             根菜類
+25 へちま             根菜類
+26 ほんもろこ（魚類） 魚介類
+27 まこも             その他
+28 みぶな             葉菜類
+29 ヤーコン           根菜類
+30 やまめ             魚介類
+31 ようさい           その他
+32 らっきょう類       根菜類
+33 液状乳類           乳製品</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_wide[df_wide<span class="sc">$</span>地場産物 <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"食材別"</span>, <span class="st">"分類"</span>)]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 27 × 2
+   食材別       分類  
+   &lt;chr&gt;        &lt;chr&gt; 
+ 1 あまご       魚介類
+ 2 あゆ         魚介類
+ 3 いわな       魚介類
+ 4 えごま       穀物  
+ 5 からしな     葉菜類
+ 6 かわはぎ     魚介類
+ 7 ぐち         魚介類
+ 8 このしろ     魚介類
+ 9 さより       魚介類
+10 さんとうさい その他
+# ℹ 17 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_wide <span class="sc">|&gt;</span> <span class="fu">filter</span>(地場産物 <span class="sc">&gt;</span> <span class="fl">0.75</span>), <span class="fu">aes</span>(<span class="at">x =</span> 国産食材, <span class="at">y =</span> 地場産物, <span class="at">label =</span> 食材別, <span class="at">group =</span> 分類, <span class="at">colour =</span> 分類)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.01</span>, <span class="at">height =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"学校給食における地場産物・国産食材の使用割合（食材別）"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"地産地消が進んでいる食材"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">""</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"出典：文部科学省「学校給食栄養報告」"</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_d3</span>()</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"HiraginoSans-W3"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="kyushoku_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="fu">file.path</span>(figdir, <span class="st">"kyushoku_y_gt075.pdf"</span>), <span class="at">plot =</span> g, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "コピーしました");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "コピーしました");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
