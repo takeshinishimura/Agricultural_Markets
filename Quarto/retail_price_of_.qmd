@@ -1,7 +1,4 @@
 ---
-project:
-  type: website
-  output-dir: docs
 title: "小売価格"
 format:
   html:
@@ -21,7 +18,7 @@ lang: ja
 ::: {.callout-note collapse="true" icon="true"}
 ## 総務省統計局　小売物価統計調査　小売物価統計調査（動向編）
 
-[https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00200571&tstat=000000680001&cycle=1&tclass1val=0](https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00200571&tstat=000000680001&cycle=1&tclass1val=0){target="_blank"}
+<https://www.e-stat.go.jp/stat-search/files?page=1&layout=datalist&toukei=00200571&tstat=000000680001&cycle=1&tclass1val=0>{target="_blank"}
 :::
 
 [小売物価統計調査 小売物価統計調査（動向編）主要品目の都市別小売価格－都道府県庁所在市及び人口15万以上の市(2000年1月～) | 統計表・グラフ表示 | 政府統計の総合窓口](https://www.e-stat.go.jp/dbview?sid=0003421913){target="_blank"} からデータを入手する。
@@ -53,11 +50,12 @@ statsDataId <- "0003421913"
 
 items <- c(
   "うるち米\\(単一原料米,「コシヒカリ」\\)", "食パン", "小麦粉",
-  "\\sさけ$", "さんま", "えび", "かつお$",
+  "\\sさけ$", "さんま", "えび", "かつお$", "かき",
   "牛肉\\(国産品\\)",  "豚肉\\(国産品,バラ\\)【2014年12月までロースを調査】",
-  "牛乳\\(店頭売り,紙容器入り\\)", "バター", "鶏卵",
-  "キャベツ", "ほうれんそう", "はくさい$", "\\sねぎ", "レタス", "もやし", "きゅうり", "なす", "トマト", "ピーマン",
-  "\\sみかん", "しらぬひ", "いちご", "バナナ", "キウイフルーツ",
+# "牛乳\\(店頭売り,紙容器入り\\)", # Fetching record 1-100000... (total: 14929641 records)
+  "バター", "鶏卵",
+  "キャベツ", "ほうれんそう", "はくさい$", "\\sねぎ", "レタス", "もやし", "さといも", "きゅうり", "なす", "トマト", "ピーマン",
+  "\\sみかん", "しらぬひ", "オレンジ", "いちご", "バナナ", "キウイフルーツ",
   "しょう油", "ケチャップ",
   "チョコレート", "アイスクリーム", "弁当\\(からあげ弁当\\)", "焼き魚", "からあげ$", "冷凍ぎょうざ",
   "緑茶", "紅茶", "果実飲料\\(濃縮還元\\)", "野菜ジュース", "清酒$", "ビール$",
@@ -75,6 +73,7 @@ for (item in items) {
 cdCat02 = meta_info$cat02$`@code`[grep(item, meta_info$cat02$`@name`)]
 
 item <- gsub("\\\\s|\\\\|\\$", "", item)
+message(item)
 
 # 統計データ取得
 df <- estat_getStatsData(
@@ -83,7 +82,9 @@ df <- estat_getStatsData(
   cdCat02 = cdCat02
 )
 
-df$time <- as.Date(lubridate::ymd(paste0(gsub("年", "-", df$`時間軸（月）`), "-01")))
+df$time <- as.Date(
+  lubridate::ymd(paste0(gsub("年", "-", df$`時間軸（月）`), "-01"))
+)
 
 # 不要なデータを削除
 df <- df |>
@@ -111,10 +112,13 @@ df <- rbind(df, data.frame(new_row, check.names = FALSE))
 write.table(df, file = file.path(outdir, paste0("retail_price_", item, "_all.csv")), sep = ",", row.names = FALSE)
 
 # 価格推移の折れ線グラフの作図
-g <- ggplot(data = df) +
-  geom_line(aes(x = time, y = value, group = 地域, color = 地域)) +
-  gghighlight(grepl("松山市|全国平均", 地域)) +
+g <- ggplot(
+    data = df,
+    aes(x = time, y = value, color = 地域)
+  ) +
+  geom_line() +
   scale_y_continuous(labels = comma) +
+  scale_color_d3() +
   labs(
     title = paste0(item, "の価格推移"),
     y = "価格（円）",
@@ -123,23 +127,40 @@ g <- ggplot(data = df) +
     caption = "出典：総務省統計局「小売物価統計調査（動向編）」"
   ) +
   theme_bw() +
-  scale_color_d3()
+  theme(
+    text = element_text(family = "Hiragino Sans")
+  ) +
+  gghighlight(
+    grepl("松山市|全国平均", 地域),
+#   line_label_type = "ggrepel_text",
+    label_params = list(family = "Hiragino Sans")
+  )
 
 print(unique(df$annotation))
-print(g + theme(text = element_text(family = "HiraKakuProN-W3")))
+print(g)
 
-ggsave(filename = file.path(figdir, paste0("retail_price_", item, "_all", ".pdf")), plot = g, width = 8, height = 4)
+ggsave(
+  paste0("retail_price_", item, "_all", ".pdf"),
+  plot = g,
+  device = cairo_pdf,
+  path = figdir,
+  width = 8,
+  height = 4
+)
 
 
 df2 <- df |>
   filter(地域 == "松山市") |>
   mutate(
-    Year = lubridate::year(time),
-#   Month = lubridate::month(time, label = TRUE, abbr = TRUE) # 日本語環境だと期待通りにならない
-    Month = factor(month.abb[lubridate::month(time)], levels = month.abb, ordered = TRUE)
+    year = lubridate::year(time),
+#   month = lubridate::month(time, label = TRUE, abbr = TRUE) # 日本語環境だと期待通りにならない
+    month = factor(month.abb[lubridate::month(time)], levels = month.abb, ordered = TRUE)
   )
 
-g2 <- ggplot(data = df2, aes(x = Month, y = value, group = Year, color = as.factor(Year))) +
+g2 <- ggplot(
+    data = df2,
+    aes(x = month, y = value, group = year, color = as.factor(year))
+  ) +
   geom_line() +
   scale_y_continuous(labels = comma) +
   scale_color_viridis(discrete = TRUE, option = "G") +
@@ -150,11 +171,20 @@ g2 <- ggplot(data = df2, aes(x = Month, y = value, group = Year, color = as.fact
     color = "年",
     caption = "出典：総務省統計局「小売物価統計調査（動向編）」"
   ) +
-  theme_bw()
+  theme(
+    text = element_text(family = "Hiragino Sans")
+  )
 
-print(g2 + theme(text = element_text(family = "HiraKakuProN-W3")))
+print(g2)
 
-ggsave(filename = paste0("retail_price_", item, "_yearly.pdf"), plot = g2, path = figdir, width = 8, height = 4)
+ggsave(
+  paste0("retail_price_", item, "_yearly.pdf"),
+  plot = g2,
+  device = cairo_pdf,
+  path = figdir,
+  width = 8,
+  height = 4
+)
 
 }
 ```

@@ -2,7 +2,7 @@ digraph market_vegetables {
   graph [rankdir = LR]
 
   node [shape = box,
-        fontname = Helvetica,
+        fontname = "IPAEXGothic",
         style = filled,
         fillcolor = white, 
         width = 1.5,
@@ -13,7 +13,7 @@ digraph market_vegetables {
         fixedsize = true]
   生産者; 消費者
 
-  edge [fontname = Helvetica]
+  edge [fontname = "IPAEXGothic"]
   生産者->食品流通業
   食品流通業->食品製造業
   食品製造業->食品小売業

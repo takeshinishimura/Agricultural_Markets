@@ -1,0 +1,68 @@
+---
+title: "米価"
+format:
+  html:
+    toc: true
+    toc-title: 目次
+    toc_float: true
+    toc-depth: 3
+    number-sections: true
+    theme: lumen
+lang: ja
+---
+
+食糧庁「米価に関する資料」。
+
+```{r}
+#| message: false
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(gghighlight)
+library(ggsci)
+
+figdir <- "../fig"
+dir.create(figdir, showWarnings = FALSE)
+
+df <- read.csv("../data/price_of_rice.csv")
+
+df_long <- df |>
+  pivot_longer(
+    cols = c(`政府買入価格`, `政府売渡価格`),
+    names_to = "name",
+    values_to = "value"
+  )
+
+g <- ggplot(
+    data = df_long,
+    aes(x = 会計年度, y = value, color = name)
+  ) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = label_comma()) +
+  scale_color_d3() +
+  labs(
+    title = "米価の推移",
+    y = "価格（円/60kg）",
+    x = "会計年度",
+    caption = "出典：食糧庁「米価に関する資料」"
+  ) +
+  theme_bw() +
+  theme(
+    text = element_text(family = "Hiragino Sans")
+  ) +
+  gghighlight(
+    line_label_type = "ggrepel_text",
+    label_params = list(family = "Hiragino Sans")
+  )
+
+ggsave(
+  "price_of_rice.pdf",
+  plot = g,
+  device = cairo_pdf,
+  path = figdir,
+  width = 8,
+  height = 4
+)
+g
+```

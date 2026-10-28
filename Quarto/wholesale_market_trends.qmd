@@ -1,7 +1,4 @@
 ---
-project:
-  type: website
-  output-dir: docs
 title: "卸売市場経由率"
 format:
   html:
@@ -17,45 +14,69 @@ lang: ja
 卸売市場経由率の推移。
 
 ::: {.callout-note collapse="true" icon="true"}
-## 卸売市場データ集（令和4年度版）
+## 卸売市場データ集（令和7年度版）1～2
 
-[https://www.maff.go.jp/j/shokusan/sijyo/info/](https://www.maff.go.jp/j/shokusan/sijyo/info/){target="_blank"}
-[https://www.maff.go.jp/j/shokusan/sijyo/info/attach/pdf/index-176.pdf](https://www.maff.go.jp/j/shokusan/sijyo/info/attach/pdf/index-176.pdf){target="_blank"}
+<https://www.maff.go.jp/j/shokusan/sijyo/info/>{target="_blank"}
+
+<https://www.maff.go.jp/j/shokusan/sijyo/info/attach/pdf/index-230.pdf>{target="_blank"}
 :::
 
 ```{r}
 #| message: false
 library(readr)
 library(tidyr)
+library(dplyr)
 library(ggplot2)
 library(gghighlight)
 library(ggsci)
+library(gt)
 
 figdir <- "../fig"
 dir.create(figdir, showWarnings = FALSE)
 
 d <- read_csv("../data/卸売市場経由率の推移.csv")
 
-d_long <- tidyr::pivot_longer(d, cols = -年度, names_to = "name", values_to = "value")
-d_long$name <- factor(d_long$name, levels = unique(d_long$name))
+d_long <- d |>
+  pivot_longer(
+    cols = -年度,
+    names_to = "name",
+    values_to = "value"
+  ) |>
+  mutate(name = factor(name, levels = unique(name)))
 
-g <- ggplot(data = d_long, aes(x = 年度, y = value, group = name, colour = name)) +
+g <- ggplot(
+    data = d_long,
+    aes(x = 年度, y = value, colour = name)
+  ) +
   geom_line() +
   geom_point() +
-  gghighlight(min(value) > 0) +
   scale_y_continuous(limits = c(0, 100)) +
-  labs(title = "卸売市場経由率の推移",
-       x = "年度", 
-       y = "卸売市場経由率（%）",
-       caption = "出典：農林水産省(2024)「令和4年度 卸売市場データ集」") +
+  scale_color_d3() +
+  labs(
+    title = "卸売市場経由率の推移",
+    x = "年度", 
+    y = "卸売市場経由率（%）",
+    caption = "出典：農林水産省(2025)「令和6年度 卸売市場データ集」") +
   theme_bw() +
   theme(
-#   text = element_text(family = "Hiragino Sans"),
-    legend.position = "none"
+    legend.position = "none",
+    text = element_text(family = "Hiragino Sans")
   ) +
-  scale_color_d3()
-g + theme(text = element_text(family = "HiraKakuProN-W3"))
+  gghighlight(
+    min(value) > 0,
+    line_label_type = "ggrepel_text",
+    label_params = list(family = "Hiragino Sans")
+  )
 
-ggsave(filename = "wholesale_market_trends.pdf", plot = g, path = figdir, width = 10, height = 5)
-ggsave("wholesale_market_trends_cairo.pdf", plot = g, device = cairo_pdf, path = figdir, width = 10, height = 5)
+ggsave(
+  "wholesale_market_trends.pdf",
+  plot = g,
+  device = cairo_pdf,
+  path = figdir,
+  width = 10,
+  height = 5
+)
+g
+
+gt(d)
 ```
